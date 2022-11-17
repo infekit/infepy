@@ -1,0 +1,9 @@
+# Config file. 
+
+[source]
+path = "Ciao"
+filename_geometry = "Ciao"
+filename_landmarks = "Ciao"
+[target]
+path = "Ciao"
+filename_landmarks = "Ciao"
