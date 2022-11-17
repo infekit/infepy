@@ -5,4 +5,7 @@ d = { 'settings': { 'branch': 'main',
                 'doc_host': 'https://infekit.github.io',
                 'git_url': 'https://github.com/infekit/infepy',
                 'lib_path': 'infepy'},
-  'syms': {'infepy.core': {'infepy.core.foo': ('core.html#foo', 'infepy/core.py')}}}
+  'syms': { 'infepy.morph': {'infepy.morph.morphing': ('1_morphing.html#morphing', 'infepy/morph.py')},
+            'infepy.preprocessing': { 'infepy.preprocessing.read_landmarks': ( '0_preprocessing.html#read_landmarks',
+                                                                               'infepy/preprocessing.py'),
+                                      'infepy.preprocessing.read_nodes': ('0_preprocessing.html#read_nodes', 'infepy/preprocessing.py')}}}

@@ -4,6 +4,6 @@ project:
 website:
   title: "infepy"
   site-url: "https://infekit.github.io/infepy"
-  description: "Morphing - PCA"
+  description: "Individualized FE"
   repo-branch: main
   repo-url: "https://github.com/infekit/infepy"
