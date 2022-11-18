@@ -8,4 +8,6 @@ d = { 'settings': { 'branch': 'main',
   'syms': { 'infepy.morph': {'infepy.morph.morphing': ('1_morphing.html#morphing', 'infepy/morph.py')},
             'infepy.preprocessing': { 'infepy.preprocessing.read_landmarks': ( '0_preprocessing.html#read_landmarks',
                                                                                'infepy/preprocessing.py'),
-                                      'infepy.preprocessing.read_nodes': ('0_preprocessing.html#read_nodes', 'infepy/preprocessing.py')}}}
+                                      'infepy.preprocessing.read_nodes': ('0_preprocessing.html#read_nodes', 'infepy/preprocessing.py')},
+            'infepy.utils': { 'infepy.utils.merge_path': ('2_utils.html#merge_path', 'infepy/utils.py'),
+                              'infepy.utils.read_toml': ('2_utils.html#read_toml', 'infepy/utils.py')}}}
