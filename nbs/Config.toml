@@ -1,9 +1,9 @@
 # Config file. 
 
 [source]
-path = "Ciao"
-filename_geometry = "Ciao"
-filename_landmarks = "Ciao"
+path = "source"
+filename_geometry = "bone.key"
+filename_landmarks = "source_lm.csv"
 [target]
-path = "Ciao"
-filename_landmarks = "Ciao"
+path = "target"
+filename_landmarks = "target_lm.key"
