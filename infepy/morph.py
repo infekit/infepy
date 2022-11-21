@@ -17,7 +17,7 @@ def morphing(source_template: np.ndarray, # coordinates of the template mesh
              target_landmarks: np.ndarray,  # Target Landmarks
              ):
     "Morph the target geometry with RBF function - Thin Plate Spine. Plot the mesh and morphed mesh."
-        
+        # TO do Fix pygem
         #rbf = RBF(original_control_points=source_landmarks, deformed_control_points=target_landmarks,
         #       func='thin_plate_spline', radius=1.0)
         #return rbf(source_template)
