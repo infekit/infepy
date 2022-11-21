@@ -7,7 +7,9 @@ __all__ = ['morphing', 'write_output', 'main']
 import os
 import numpy as np
 import click
-from pygem import RBF
+# import sys
+# sys.path.append("..")
+from pygem.rbf import RBF
 
 # %% ../nbs/1_morphing.ipynb 5
 def morphing(source_template: np.ndarray, # coordinates of the template mesh 
