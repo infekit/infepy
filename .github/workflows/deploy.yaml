@@ -6,8 +6,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    steps: 
-      - uses: fastai/workflows/quarto-ghp@master]
+    steps: [ uses: fastai/workflows/quarto-ghp@master]
       # - name: Install Pygem
       #   run: python -m pip install --upgrade pip git+https://github.com/mathLab/PyGeM
     
