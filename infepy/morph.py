@@ -31,29 +31,3 @@ def write_output(mesh: np.ndarray, # Morphed geometry
     "Write an output file for the morphed geometry in key file format."
     pass
     return
-
-# %% ../nbs/1_morphing.ipynb 7
-def __main__():
-    config = read_toml()
-    source_landmarks = read_landmarks(config['source']['filename_landmarks'])
-    template_geometry = read_nodes(config['source']['filename_geometry'])
-
-    if multiple_targets() == bool: # single target
-        target_landmarks = read_landmarks(config['target']['filename_landmarks'])
-        # _check_landmarks(source_landmarks, target_landmarks)
-        morphed_geometry = morphing(source_landmarks, target_landmarks, template_geometry)
-        write_output(morphed_geometry)
-    else:
-        targets_folder = multiple_targets()
-        for folder in targets_folder:
-            new_path = os.path.join(config['target']['path'],folder, config['target']['filename_landmarks'])
-            target_landmarks = read_landmarks(new_path)
-            # _check_landmarks(source_landmarks, target_landmarks)
-            morphed_geometry = morphing(source_landmarks, target_landmarks, template_geometry)
-            write_output(morphed_geometry)
-            print("Yes!!")
-
-__main__()
-        
-        
-
