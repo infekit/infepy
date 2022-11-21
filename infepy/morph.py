@@ -8,8 +8,8 @@ import os
 import numpy as np
 
 # %% ../nbs/1_morphing.ipynb 4
-from .preprocessing import read_landmarks, read_nodes
-from .utils import read_toml
+from .preprocessing import read_landmarks, read_nodes, _check_landmarks
+from .utils import read_toml, multiple_targets, _merge_path
 
 # %% ../nbs/1_morphing.ipynb 5
 def morphing(source_template: np.ndarray, # coordinates of the template mesh 
