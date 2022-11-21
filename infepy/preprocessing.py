@@ -5,17 +5,16 @@ __all__ = ['logger', 'read_nodes', 'read_landmarks']
 
 # %% ../nbs/0_preprocessing.ipynb 3
 import logging
-
 import os
 import numpy as np
 import pandas as pd
 
 # %% ../nbs/0_preprocessing.ipynb 4
 logger = logging.getLogger(name='preprocessing')
-logging.basicConfig(filename="example.log",filemode='w+' ,level=logging.DEBUG, force=True, format='[%(asctime)-15s] %(levelname)-8s %(filename)s %(funcName)s line %(lineno)d %(message)s')
+logging.basicConfig(filename="preprocessing.log",filemode='w+' ,level=logging.DEBUG, force=True, format='[%(asctime)-15s] %(levelname)-8s %(filename)s %(funcName)s line %(lineno)d %(message)s')
 
 # %% ../nbs/0_preprocessing.ipynb 5
-def read_nodes(geometry # .csv or .key file containing source template
+def read_nodes(geometry:str # .csv or .key file containing source template
                ) -> np.ndarray: # Numpy array of shape [n_nodes, x,y,z_displacement]
     "Read the nodes from the source template. The source template can be either a .key/.k file or .csv"
     try:
@@ -24,22 +23,35 @@ def read_nodes(geometry # .csv or .key file containing source template
         elif geometry.endswith('.key') or geometry.endswith('.k') :
             pass
     except:
-        logger.exception("No readable file")
+        logger.exception("Read_Nodes: No readable files")
     else:
         return 
 
 # %% ../nbs/0_preprocessing.ipynb 6
-def read_landmarks(file # .csv or .key file containing Landmarks
-                   )-> pd.DataFrame: # Dataframe of length [n_landmarks] divided in columns [ID/label, x,y,z]
-
+def read_landmarks(filename:str # .csv or .key file containing Landmarks
+                   ): # Dataframe of length [n_landmarks] divided in columns [ID/label, x,y,z]
     "Read the landmarks from file."
     try:
-        if file.endswith('.csv'):
+        if filename.endswith('.csv'):
             pass
-        elif file.endswith('.key') or file.endswith('.k') :
+        elif filename.endswith('.key') or filename.endswith('.k') :
             pass
     except:
-        logger.exception("No readable file")
+        logger.exception("Read_Landamarks - No readable files")
     else:
         return 
     pass
+
+# %% ../nbs/0_preprocessing.ipynb 7
+def _check_landmarks(source: pd.DataFrame, # Source dataframe
+                    target: pd.DataFrame # Target dataframe
+                    ):
+    "This function compares the source and target Dataframe. It performs two test: if the have same amount of landmarks and if Label/IDs are in the same order.  "
+    try:
+        assert len(source) == len(target), "Not same amount of landmarks for source and target"
+        
+        bool = target.iloc[:,0].values == source.iloc[:,0].values
+        assert bool.any() == True, "Order of landmarks is not the same for target and source"
+    except:
+        logger.exception("Invalid Landmarks. Need to be same size and order")       
+    return
