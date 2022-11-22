@@ -55,8 +55,3 @@ def main():
 # @click.command()
 # def hello():
 #     click.echo("hello")
-
-# %% ../nbs/1_morphing.ipynb 10
-if __name__ == "__main__":
-    main()
-    
