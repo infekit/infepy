@@ -12,4 +12,3 @@ jobs:
       
       - name: Install Pygem
         run: pip git+https://github.com/mathLab/PyGeM
-    
