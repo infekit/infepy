@@ -7,7 +7,10 @@ __all__ = ['morphing', 'write_output', 'main']
 import os
 import numpy as np
 import click
-from pygem import RBF
+import sys
+sys.path.append("..")
+from pygem.rbf import RBF
+# https://gideonbrimleaf.github.io/2021/01/26/relative-imports-python.html
 
 # %% ../nbs/1_morphing.ipynb 5
 def morphing(source_template: np.ndarray, # coordinates of the template mesh 
@@ -53,3 +56,8 @@ def main():
 # @click.command()
 # def hello():
 #     click.echo("hello")
+
+# %% ../nbs/1_morphing.ipynb 10
+if __name__ == "__main__":
+    main()
+    
