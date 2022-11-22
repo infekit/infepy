@@ -13,8 +13,5 @@ jobs:
       - name: Install Pygem
         run: pip install git+https://github.com/mathLab/PyGeM
 
-      - name: Install Quarto
-        run: nbdev_install_quarto
-
       - name: Quarto
         uses: fastai/workflows/quarto-ghp@master
