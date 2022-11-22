@@ -7,8 +7,7 @@ __all__ = ['morphing', 'write_output', 'main']
 import os
 import numpy as np
 import click
-import sys
-sys.path.append("..")
+import pygem
 from pygem.rbf import RBF
 # https://gideonbrimleaf.github.io/2021/01/26/relative-imports-python.html
 
