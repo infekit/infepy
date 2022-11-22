@@ -5,6 +5,8 @@ __all__ = ['read_toml', 'multiple_targets']
 
 # %% ../nbs/2_utils.ipynb 3
 import os
+import numpy as np
+import pandas as pd
 import toml
 
 # %% ../nbs/2_utils.ipynb 4

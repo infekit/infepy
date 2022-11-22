@@ -9,25 +9,30 @@ import os
 import numpy as np
 import pandas as pd
 
-# %% ../nbs/0_preprocessing.ipynb 4
+# %% ../nbs/0_preprocessing.ipynb 5
 logger = logging.getLogger(name='preprocessing')
 logging.basicConfig(filename="preprocessing.log",filemode='w+' ,level=logging.DEBUG, force=True, format='[%(asctime)-15s] %(levelname)-8s %(filename)s %(funcName)s line %(lineno)d %(message)s')
 
-# %% ../nbs/0_preprocessing.ipynb 5
-def read_nodes(geometry:str # .csv or .key file containing source template
+# %% ../nbs/0_preprocessing.ipynb 6
+def read_nodes(mesh:str # .csv or .key file containing source template
                ) -> np.ndarray: # Numpy array of shape [n_nodes, x,y,z_displacement]
     "Read the nodes from the source template. The source template can be either a .key/.k file or .csv"
     try:
-        if geometry.endswith('.csv'):
-            pass
-        elif geometry.endswith('.key') or geometry.endswith('.k') :
+        if mesh.endswith('.csv'):
+            with open(mesh) as fp:
+                df = pd.read_csv(fp)
+                df= df[['id','x','y','z']]
+        elif mesh.endswith('.key') or mesh.endswith('.k') :
+            
+            
             pass
     except:
         logger.exception("Read_Nodes: No readable files")
     else:
+        # assert not mesh
         return 
 
-# %% ../nbs/0_preprocessing.ipynb 6
+# %% ../nbs/0_preprocessing.ipynb 7
 def read_landmarks(filename:str # .csv or .key file containing Landmarks
                    ): # Dataframe of length [n_landmarks] divided in columns [ID/label, x,y,z]
     "Read the landmarks from file."
@@ -42,7 +47,7 @@ def read_landmarks(filename:str # .csv or .key file containing Landmarks
         return 
     pass
 
-# %% ../nbs/0_preprocessing.ipynb 7
+# %% ../nbs/0_preprocessing.ipynb 8
 def _check_landmarks(source: pd.DataFrame, # Source dataframe
                     target: pd.DataFrame # Target dataframe
                     ):
@@ -52,6 +57,9 @@ def _check_landmarks(source: pd.DataFrame, # Source dataframe
         
         bool = target.iloc[:,0].values == source.iloc[:,0].values
         assert bool.any() == True, "Order of landmarks is not the same for target and source"
+        # TO DO: return values that are false. Bool gived false and extract index. Print. 
+        # Sort them
+        # if they dont match, return exception -->
     except:
         logger.exception("Invalid Landmarks. Need to be same size and order")       
     return

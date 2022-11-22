@@ -2,7 +2,7 @@
 
 [source]
 path = "data/source"
-filename_geometry = "bone.key"
+filename_mesh = "bone.key"
 filename_landmarks = "landmarks_source.csv"
 [target]
 path = "data/target"
