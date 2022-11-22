@@ -4,7 +4,7 @@ on:
     branches: ["main", "master"]
   workflow_dispatch:
 jobs:
-  deploy_id:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Upgrade pip
@@ -12,6 +12,9 @@ jobs:
 
       - name: Install Pygem
         run: pip install git+https://github.com/mathLab/PyGeM
+
+      - name: Install Quarto
+        run: nbdev_install_quarto
 
       - name: Quarto
         uses: fastai/workflows/quarto-ghp@master
