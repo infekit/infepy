@@ -4,7 +4,7 @@ on:
     branches: [ "main", "master" ]
   workflow_dispatch:
 jobs:
-  deploy:
+  deploy_id:
     runs-on: ubuntu-latest
     steps: [ uses: fastai/workflows/quarto-ghp@master]
       - name: Upgrade pip
