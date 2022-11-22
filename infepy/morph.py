@@ -8,7 +8,7 @@ import os
 import numpy as np
 import click
 import pygem
-from pygem.rbf import RBF
+from pygem import RBF
 # https://gideonbrimleaf.github.io/2021/01/26/relative-imports-python.html
 
 # %% ../nbs/1_morphing.ipynb 5
