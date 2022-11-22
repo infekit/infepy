@@ -7,8 +7,8 @@ __all__ = ['morphing', 'write_output', 'main']
 import os
 import numpy as np
 import click
-import pygem
-from pygem import RBF
+# import pygem
+# from pygem import RBF
 # https://gideonbrimleaf.github.io/2021/01/26/relative-imports-python.html
 
 # %% ../nbs/1_morphing.ipynb 5
@@ -17,9 +17,9 @@ def morphing(source_template: np.ndarray, # coordinates of the template mesh
              target_landmarks: np.ndarray,  # Target Landmarks
              ):
     "Morph the target geometry with RBF function - Thin Plate Spine. Plot the mesh and morphed mesh."
-    rbf = RBF(original_control_points=source_landmarks, deformed_control_points=target_landmarks,
-            func='thin_plate_spline', radius=1.0)
-    return rbf#rbf(source_template)
+#     rbf = RBF(original_control_points=source_landmarks, deformed_control_points=target_landmarks,
+#             func='thin_plate_spline', radius=1.0)
+#     return rbf#rbf(source_template)
 
 # %% ../nbs/1_morphing.ipynb 6
 def write_output(mesh: np.ndarray, # Morphed geometry
