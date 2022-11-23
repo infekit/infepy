@@ -3,24 +3,24 @@
 # %% auto 0
 __all__ = ['RBF']
 
-# %% ../nbs/rbf.ipynb 1
+# %% ../nbs/rbf.ipynb 2
 import os
 import numpy as np
 from nbdev.showdoc import *
 import matplotlib.pyplot as plt
 from scipy.spatial.distance import cdist
 
-# %% ../nbs/rbf.ipynb 2
+# %% ../nbs/rbf.ipynb 3
 from .deformation import Deformation
 from .rbf_factory import RBFFactory
 
-# %% ../nbs/rbf.ipynb 3
+# %% ../nbs/rbf.ipynb 4
 try:
     import configparser as configparser
 except ImportError:
     import ConfigParser as configparser
 
-# %% ../nbs/rbf.ipynb 4
+# %% ../nbs/rbf.ipynb 5
 """
 Module focused on the implementation of the Radial Basis Functions interpolation
 technique.  This technique is still based on the use of a set of parameters, the
