@@ -13,33 +13,29 @@ import pandas as pd
 logger = logging.getLogger(name='preprocessing')
 logging.basicConfig(filename="preprocessing.log",filemode='w+' ,level=logging.DEBUG, force=True, format='[%(asctime)-15s] %(levelname)-8s %(filename)s %(funcName)s line %(lineno)d %(message)s')
 
-# %% ../nbs/0_preprocessing.ipynb 6
-def read_nodes(mesh:str # .csv or .key file containing source template
+# %% ../nbs/0_preprocessing.ipynb 8
+def read_nodes(path_to_mesh:str # .csv or .key file containing source template
                ) -> np.ndarray: # Numpy array of shape [n_nodes, x,y,z_displacement]
-    "Read the nodes from the source template. The source template can be either a .key/.k file or .csv"
+    "Read the nodes from the source template. The source template can be either a .key/.k file or .csv"    
     try:
-        if mesh.endswith('.csv'):
-            with open(mesh) as fp:
-                df = pd.read_csv(fp)
-                df= df[['id','x','y','z']]
-        elif mesh.endswith('.key') or mesh.endswith('.k') :
-            
-            
-            pass
+        if path_to_mesh.endswith('.csv'):
+                mesh_df = read_csv_file(path_to_mesh)
+        elif path_to_mesh.endswith('.key') or path_to_mesh.endswith('.k'):
+            mesh_df= read_k_file(path_to_mesh)
     except:
         logger.exception("Read_Nodes: No readable files")
-    else:
-        # assert not mesh
-        return 
+    return mesh_df
 
-# %% ../nbs/0_preprocessing.ipynb 7
-def read_landmarks(filename:str # .csv or .key file containing Landmarks
+# %% ../nbs/0_preprocessing.ipynb 10
+def read_landmarks(path_to_file:str # .csv or .key file containing Landmarks
                    ): # Dataframe of length [n_landmarks] divided in columns [ID/label, x,y,z]
     "Read the landmarks from file."
     try:
-        if filename.endswith('.csv'):
-            pass
-        elif filename.endswith('.key') or filename.endswith('.k') :
+        if path_to_file.endswith('.csv'):
+
+                mesh_df = read_csv_file(path_to_file)
+            
+        elif path_to_file.endswith('.key') or path_to_file.endswith('.k') :
             pass
     except:
         logger.exception("Read_Landamarks - No readable files")
@@ -47,7 +43,7 @@ def read_landmarks(filename:str # .csv or .key file containing Landmarks
         return 
     pass
 
-# %% ../nbs/0_preprocessing.ipynb 8
+# %% ../nbs/0_preprocessing.ipynb 11
 def _check_landmarks(source: pd.DataFrame, # Source dataframe
                     target: pd.DataFrame # Target dataframe
                     ):
