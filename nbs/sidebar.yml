@@ -6,3 +6,4 @@ website:
       - 0_preprocessing.ipynb
       - 1_morphing.ipynb
       - 2_utils.ipynb
+      - rbf.ipynb

@@ -9,7 +9,7 @@ import numpy as np
 # https://gideonbrimleaf.github.io/2021/01/26/relative-imports-python.html
 
 # %% ../nbs/1_morphing.ipynb 4
-from pygem.rbf import RBF
+from .rbf import RBF
 
 # %% ../nbs/1_morphing.ipynb 6
 def morphing(source_template: np.ndarray, # coordinates of the template mesh 
