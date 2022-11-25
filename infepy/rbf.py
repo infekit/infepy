@@ -20,7 +20,7 @@ try:
 except ImportError:
     import ConfigParser as configparser
 
-# %% ../nbs/rbf.ipynb 5
+# %% ../nbs/rbf.ipynb 6
 """
 Module focused on the implementation of the Radial Basis Functions interpolation
 technique.  This technique is still based on the use of a set of parameters, the
