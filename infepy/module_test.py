@@ -13,10 +13,12 @@ from .preprocessing import _check_landmarks
 
 # %% ../nbs/00_test.ipynb 3
 def _test_landmarks():
-    s= { 'a': ["Head","Shaft","Epiphysis"],'A': [0, 1, 0]}
-    t= { 'a': ["Head","Shaft","Epiphysis"],'A': [0 ,1 ,1]}
+    s = {"a": ["Head", "Shaft", "Epiphysis"], "A": [0, 1, 0]}
+    t = {"a": ["Head", "Shaft", "Epiphysis"], "A": [0, 1, 1]}
     source = pd.DataFrame(s)
     target = pd.DataFrame(t)
-    _check_landmarks(source,target)
+    _check_landmarks(source, target)
     return
+
+
 _test_landmarks()

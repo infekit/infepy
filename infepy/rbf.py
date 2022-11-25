@@ -78,6 +78,8 @@ The module is analogous to the freeform one.
     Wendland :math:`C^2` basis and Polyharmonic splines all defined and
     implemented below.
 """
+
+
 class RBF(Deformation):
     """
     Class that handles the Radial Basis Functions interpolation on the mesh
@@ -100,8 +102,8 @@ class RBF(Deformation):
         basis functions.  For details see the class
         :class:`RBF`. The default value is 0.5.
     :param dict extra_parameter: the additional parameters that may be passed to
-    	the kernel function. Default is None.
-        
+        the kernel function. Default is None.
+
     :cvar numpy.ndarray weights: the matrix formed by the weights corresponding
         to the a-priori selected N control points, associated to the basis
         functions and c and Q terms that describe the polynomial of order one
@@ -118,8 +120,8 @@ class RBF(Deformation):
     :cvar float radius: the scaling parameter that affects the shape of the
         basis functions.
     :cvar dict extra_parameter: the additional parameters that may be passed to
-    	the kernel function.
-        
+        the kernel function.
+
     :Example:
 
         >>> from pygem import RBF
@@ -132,39 +134,56 @@ class RBF(Deformation):
         >>> mesh = np.array([x.ravel(), y.ravel(), z.ravel()])
         >>> deformed_mesh = rbf(mesh)
     """
-    def __init__(self,
-                 original_control_points=None,
-                 deformed_control_points=None,
-                 func='gaussian_spline',
-                 radius=0.5,
-                 extra_parameter=None):
+
+    def __init__(
+        self,
+        original_control_points=None,
+        deformed_control_points=None,
+        func="gaussian_spline",
+        radius=0.5,
+        extra_parameter=None,
+    ):
 
         self.basis = func
         self.radius = radius
 
         if original_control_points is None:
-            self.original_control_points = np.array([[0., 0., 0.], [0., 0., 1.],
-                                                     [0., 1., 0.], [1., 0., 0.],
-                                                     [0., 1., 1.], [1., 0., 1.],
-                                                     [1., 1., 0.], [1., 1.,
-                                                                    1.]])
+            self.original_control_points = np.array(
+                [
+                    [0.0, 0.0, 0.0],
+                    [0.0, 0.0, 1.0],
+                    [0.0, 1.0, 0.0],
+                    [1.0, 0.0, 0.0],
+                    [0.0, 1.0, 1.0],
+                    [1.0, 0.0, 1.0],
+                    [1.0, 1.0, 0.0],
+                    [1.0, 1.0, 1.0],
+                ]
+            )
         else:
             self.original_control_points = original_control_points
 
         if deformed_control_points is None:
-            self.deformed_control_points = np.array([[0., 0., 0.], [0., 0., 1.],
-                                                     [0., 1., 0.], [1., 0., 0.],
-                                                     [0., 1., 1.], [1., 0., 1.],
-                                                     [1., 1., 0.], [1., 1.,
-                                                                    1.]])
+            self.deformed_control_points = np.array(
+                [
+                    [0.0, 0.0, 0.0],
+                    [0.0, 0.0, 1.0],
+                    [0.0, 1.0, 0.0],
+                    [1.0, 0.0, 0.0],
+                    [0.0, 1.0, 1.0],
+                    [1.0, 0.0, 1.0],
+                    [1.0, 1.0, 0.0],
+                    [1.0, 1.0, 1.0],
+                ]
+            )
         else:
             self.deformed_control_points = deformed_control_points
 
         self.extra = extra_parameter if extra_parameter else dict()
 
-        self.weights = self._get_weights(self.original_control_points,
-                                         self.deformed_control_points)
-
+        self.weights = self._get_weights(
+            self.original_control_points, self.deformed_control_points
+        )
 
     @property
     def n_control_points(self):
@@ -196,7 +215,7 @@ class RBF(Deformation):
         elif isinstance(func, str):
             self.__basis = RBFFactory(func)
         else:
-            raise TypeError('`func` is not valid.')
+            raise TypeError("`func` is not valid.")
 
     def _get_weights(self, X, Y):
         """
@@ -217,7 +236,7 @@ class RBF(Deformation):
         """
         npts, dim = X.shape
         H = np.zeros((npts + 3 + 1, npts + 3 + 1))
-        H[:npts, :npts] = self.basis(cdist(X, X), self.radius)#, **self.extra)
+        H[:npts, :npts] = self.basis(cdist(X, X), self.radius)  # , **self.extra)
         H[npts, :npts] = 1.0
         H[:npts, npts] = 1.0
         H[:npts, -3:] = X
@@ -228,7 +247,7 @@ class RBF(Deformation):
         weights = np.linalg.solve(H, rhs)
         return weights
 
-    def read_parameters(self, filename='parameters_rbf.prm'):
+    def read_parameters(self, filename="parameters_rbf.prm"):
         """
         Reads in the parameters file and fill the self structure.
 
@@ -236,7 +255,7 @@ class RBF(Deformation):
             parameters_rbf.prm.
         """
         if not isinstance(filename, str):
-            raise TypeError('filename must be a string')
+            raise TypeError("filename must be a string")
 
         # Checks if the parameters file exists. If not it writes the default
         # class into filename.  It consists in the vetices of a cube of side one
@@ -248,40 +267,39 @@ class RBF(Deformation):
         config = configparser.RawConfigParser()
         config.read(filename)
 
-        self.basis = config.get('Radial Basis Functions', 'basis function')
-        self.radius = config.getfloat('Radial Basis Functions', 'radius')
+        self.basis = config.get("Radial Basis Functions", "basis function")
+        self.radius = config.getfloat("Radial Basis Functions", "radius")
 
-        ctrl_points = config.get('Control points', 'original control points')
-        lines = ctrl_points.split('\n')
+        ctrl_points = config.get("Control points", "original control points")
+        lines = ctrl_points.split("\n")
         original_control_points = np.zeros((len(lines), 3))
         for line, i in zip(lines, list(range(0, self.n_control_points))):
             values = line.split()
             original_control_points[i] = np.array(
-                [float(values[0]),
-                 float(values[1]),
-                 float(values[2])])
+                [float(values[0]), float(values[1]), float(values[2])]
+            )
         self.original_control_points = original_control_points
 
-        mod_points = config.get('Control points', 'deformed control points')
-        lines = mod_points.split('\n')
+        mod_points = config.get("Control points", "deformed control points")
+        lines = mod_points.split("\n")
 
         if len(lines) != self.n_control_points:
-            raise TypeError("The number of control points must be equal both in"
-                            "the 'original control points' and in the 'deformed"
-                            "control points' section of the parameters file"
-                            "({0!s})".format(filename))
+            raise TypeError(
+                "The number of control points must be equal both in"
+                "the 'original control points' and in the 'deformed"
+                "control points' section of the parameters file"
+                "({0!s})".format(filename)
+            )
 
         deformed_control_points = np.zeros((self.n_control_points, 3))
         for line, i in zip(lines, list(range(0, self.n_control_points))):
             values = line.split()
             deformed_control_points[i] = np.array(
-                [float(values[0]),
-                 float(values[1]),
-                 float(values[2])])
+                [float(values[0]), float(values[1]), float(values[2])]
+            )
         self.deformed_control_points = deformed_control_points
-    
 
-    def write_parameters(self, filename='parameters_rbf.prm'):
+    def write_parameters(self, filename="parameters_rbf.prm"):
         """
         This method writes a parameters file (.prm) called `filename` and fills
         it with all the parameters class members. Default value is
@@ -293,57 +311,67 @@ class RBF(Deformation):
             raise TypeError("filename must be a string")
 
         output_string = ""
-        output_string += '\n[Radial Basis Functions]\n'
-        output_string += '# This section describes the radial basis functions'
-        output_string += ' shape.\n'
+        output_string += "\n[Radial Basis Functions]\n"
+        output_string += "# This section describes the radial basis functions"
+        output_string += " shape.\n"
 
-        output_string += '\n# basis funtion is the name of the basis functions'
-        output_string += ' to use in the transformation. The functions\n'
-        output_string += '# implemented so far are: gaussian_spline,'
-        output_string += ' multi_quadratic_biharmonic_spline,\n'
-        output_string += '# inv_multi_quadratic_biharmonic_spline,'
-        output_string += ' thin_plate_spline, beckert_wendland_c2_basis,'
-        output_string += ' polyharmonic_spline.\n'
-        output_string += '# For a comprehensive list with details see the'
-        output_string += ' class RBF.\n'
-        output_string += 'basis function: {}\n'.format('gaussian_spline')
+        output_string += "\n# basis funtion is the name of the basis functions"
+        output_string += " to use in the transformation. The functions\n"
+        output_string += "# implemented so far are: gaussian_spline,"
+        output_string += " multi_quadratic_biharmonic_spline,\n"
+        output_string += "# inv_multi_quadratic_biharmonic_spline,"
+        output_string += " thin_plate_spline, beckert_wendland_c2_basis,"
+        output_string += " polyharmonic_spline.\n"
+        output_string += "# For a comprehensive list with details see the"
+        output_string += " class RBF.\n"
+        output_string += "basis function: {}\n".format("gaussian_spline")
 
-        output_string += '\n# radius is the scaling parameter r that affects'
-        output_string += ' the shape of the basis functions. See the'
-        output_string += ' documentation\n'
-        output_string += '# of the class RBF for details.\n'
-        output_string += 'radius: {}\n'.format(str(self.radius))
+        output_string += "\n# radius is the scaling parameter r that affects"
+        output_string += " the shape of the basis functions. See the"
+        output_string += " documentation\n"
+        output_string += "# of the class RBF for details.\n"
+        output_string += "radius: {}\n".format(str(self.radius))
 
-        output_string += '\n\n[Control points]\n'
-        output_string += '# This section describes the RBF control points.\n'
+        output_string += "\n\n[Control points]\n"
+        output_string += "# This section describes the RBF control points.\n"
 
-        output_string += '\n# original control points collects the coordinates'
-        output_string += ' of the interpolation control points before the'
-        output_string += ' deformation.\n'
+        output_string += "\n# original control points collects the coordinates"
+        output_string += " of the interpolation control points before the"
+        output_string += " deformation.\n"
 
-        output_string += 'original control points:'
+        output_string += "original control points:"
         offset = 1
         for i in range(0, self.n_control_points):
-            output_string += offset * ' ' + str(
-                self.original_control_points[i][0]) + '   ' + str(
-                    self.original_control_points[i][1]) + '   ' + str(
-                        self.original_control_points[i][2]) + '\n'
+            output_string += (
+                offset * " "
+                + str(self.original_control_points[i][0])
+                + "   "
+                + str(self.original_control_points[i][1])
+                + "   "
+                + str(self.original_control_points[i][2])
+                + "\n"
+            )
             offset = 25
 
-        output_string += '\n# deformed control points collects the coordinates'
-        output_string += ' of the interpolation control points after the'
-        output_string += ' deformation.\n'
+        output_string += "\n# deformed control points collects the coordinates"
+        output_string += " of the interpolation control points after the"
+        output_string += " deformation.\n"
 
-        output_string += 'deformed control points:'
+        output_string += "deformed control points:"
         offset = 1
         for i in range(0, self.n_control_points):
-            output_string += offset * ' ' + str(
-                self.deformed_control_points[i][0]) + '   ' + str(
-                    self.deformed_control_points[i][1]) + '   ' + str(
-                        self.deformed_control_points[i][2]) + '\n'
+            output_string += (
+                offset * " "
+                + str(self.deformed_control_points[i][0])
+                + "   "
+                + str(self.deformed_control_points[i][1])
+                + "   "
+                + str(self.deformed_control_points[i][2])
+                + "\n"
+            )
             offset = 25
 
-        with open(filename, 'w') as f:
+        with open(filename, "w") as f:
             f.write(output_string)
 
     def __str__(self):
@@ -351,13 +379,13 @@ class RBF(Deformation):
         This method prints all the RBF parameters on the screen. Its purpose is
         for debugging.
         """
-        string = ''
-        string += 'basis function = {}\n'.format(self.basis)
-        string += 'radius = {}\n'.format(self.radius)
-        string += '\noriginal control points =\n'
-        string += '{}\n'.format(self.original_control_points)
-        string += '\ndeformed control points =\n'
-        string += '{}\n'.format(self.deformed_control_points)
+        string = ""
+        string += "basis function = {}\n".format(self.basis)
+        string += "radius = {}\n".format(self.radius)
+        string += "\noriginal control points =\n"
+        string += "{}\n".format(self.original_control_points)
+        string += "\ndeformed control points =\n"
+        string += "{}\n".format(self.deformed_control_points)
         return string
 
     def plot_points(self, filename=None):
@@ -369,27 +397,34 @@ class RBF(Deformation):
             on the specified `filename`. Default is None.
         """
         fig = plt.figure(1)
-        axes = fig.add_subplot(111, projection='3d')
-        orig = axes.scatter(self.original_control_points[:, 0],
-                            self.original_control_points[:, 1],
-                            self.original_control_points[:, 2],
-                            c='blue',
-                            marker='o')
-        defor = axes.scatter(self.deformed_control_points[:, 0],
-                             self.deformed_control_points[:, 1],
-                             self.deformed_control_points[:, 2],
-                             c='red',
-                             marker='x')
+        axes = fig.add_subplot(111, projection="3d")
+        orig = axes.scatter(
+            self.original_control_points[:, 0],
+            self.original_control_points[:, 1],
+            self.original_control_points[:, 2],
+            c="blue",
+            marker="o",
+        )
+        defor = axes.scatter(
+            self.deformed_control_points[:, 0],
+            self.deformed_control_points[:, 1],
+            self.deformed_control_points[:, 2],
+            c="red",
+            marker="x",
+        )
 
-        axes.set_xlabel('X axis')
-        axes.set_ylabel('Y axis')
-        axes.set_zlabel('Z axis')
+        axes.set_xlabel("X axis")
+        axes.set_ylabel("Y axis")
+        axes.set_zlabel("Z axis")
 
-        plt.legend((orig, defor), ('Original', 'Deformed'),
-                   scatterpoints=1,
-                   loc='lower left',
-                   ncol=2,
-                   fontsize=10)
+        plt.legend(
+            (orig, defor),
+            ("Original", "Deformed"),
+            scatterpoints=1,
+            loc="lower left",
+            ncol=2,
+            fontsize=10,
+        )
 
         # Show the plot to the screen
         if filename is None:
@@ -402,8 +437,9 @@ class RBF(Deformation):
         This method compute the weights according to the
         `original_control_points` and `deformed_control_points` arrays.
         """
-        self.weights = self._get_weights(self.original_control_points,
-                                         self.deformed_control_points)
+        self.weights = self._get_weights(
+            self.original_control_points, self.deformed_control_points
+        )
 
     def __call__(self, src_pts):
         """
@@ -413,11 +449,10 @@ class RBF(Deformation):
         self.compute_weights()
 
         H = np.zeros((src_pts.shape[0], self.n_control_points + 3 + 1))
-        H[:, :self.n_control_points] = self.basis(
-            cdist(src_pts, self.original_control_points), 
-            self.radius)
-            #**self.extra)
+        H[:, : self.n_control_points] = self.basis(
+            cdist(src_pts, self.original_control_points), self.radius
+        )
+        # **self.extra)
         H[:, self.n_control_points] = 1.0
         H[:, -3:] = src_pts
         return np.asarray(np.dot(H, self.weights))
-

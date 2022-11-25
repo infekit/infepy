@@ -6,23 +6,34 @@ __all__ = ['morphing']
 # %% ../nbs/1_morphing.ipynb 3
 import os
 import numpy as np
+
 # https://gideonbrimleaf.github.io/2021/01/26/relative-imports-python.html
 
 # %% ../nbs/1_morphing.ipynb 4
 from .rbf import RBF
 
 # %% ../nbs/1_morphing.ipynb 5
-from .preprocessing import read_landmarks, read_nodes, _check_landmarks, write_output
+from infepy.preprocessing import (
+    read_landmarks,
+    read_nodes,
+    _check_landmarks,
+    write_output,
+)
 from .utils import read_toml, multiple_targets, _merge_path, to_ls_dyna
 
 # %% ../nbs/1_morphing.ipynb 6
-def morphing(source_mesh: np.ndarray, # Coordinates of the mesh/ mesh 
-             source_landmarks: np.ndarray,  # Landmarks of the source mesh
-             target_landmarks: np.ndarray,  # Target Landmarks
-             ):
+def morphing(
+    source_mesh: np.ndarray,  # Coordinates of the mesh/ mesh
+    source_landmarks: np.ndarray,  # Landmarks of the source mesh
+    target_landmarks: np.ndarray,  # Target Landmarks
+):
     "Morph the target mesh with RBF function - Thin Plate Spine."
-    rbf = RBF(original_control_points=source_landmarks, deformed_control_points=target_landmarks,
-            func='thin_plate_spline', radius=1.0)
+    rbf = RBF(
+        original_control_points=source_landmarks,
+        deformed_control_points=target_landmarks,
+        func="thin_plate_spline",
+        radius=1.0,
+    )
     return rbf(source_mesh)
 
 # %% ../nbs/1_morphing.ipynb 8
