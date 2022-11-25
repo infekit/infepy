@@ -44,9 +44,7 @@ def read_k_file(
     node_coords = []
     find_nodes = False
 
-    assert os.path.exists(
-        path_to_file
-    ), "Wrong path. Path not existent. Check the name/extension of the file."
+    # assert os.path.exists(path_to_file), "Wrong path. Path not existent. Check the name/extension of the file."
 
     with open(path_to_file, "r") as fp:
         for _, line in enumerate(fp):
