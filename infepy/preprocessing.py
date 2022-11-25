@@ -77,7 +77,7 @@ def _check_landmarks(
         logger.exception("Invalid Landmarks. Need to be same size and order")
     return
 
-# %% ../nbs/0_preprocessing.ipynb 15
+# %% ../nbs/0_preprocessing.ipynb 17
 def write_output(
     morphed_mesh: np.ndarray,  # Morphed mesh
     morphed_file: np.ndarray,  #  path to directory to save the file
