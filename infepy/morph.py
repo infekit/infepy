@@ -7,8 +7,6 @@ __all__ = ['morphing']
 import os
 import numpy as np
 
-# https://gideonbrimleaf.github.io/2021/01/26/relative-imports-python.html
-
 # %% ../nbs/1_morphing.ipynb 4
 from .rbf import RBF
 
