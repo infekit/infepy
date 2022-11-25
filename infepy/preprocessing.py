@@ -9,6 +9,9 @@ import os
 import numpy as np
 import pandas as pd
 
+# %% ../nbs/0_preprocessing.ipynb 4
+from .utils import read_k_file, read_csv_file, to_ls_dyna
+
 # %% ../nbs/0_preprocessing.ipynb 5
 logger = logging.getLogger(name="preprocessing")
 logging.basicConfig(

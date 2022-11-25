@@ -6,4 +6,4 @@ filename_mesh = "bone.key"
 filename_landmarks = "landmarks_source.csv"
 [target]
 path = "data/target"
-filename_landmarks = "landmarks_target.csv"
+filename_landmarks = "landmarks_target.key"
