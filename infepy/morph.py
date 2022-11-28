@@ -28,17 +28,19 @@ from infepy.utils import (
 
 # %% ../nbs/1_morphing.ipynb 6
 def morphing(
-    source_mesh: np.ndarray,  # Coordinates of the mesh/ mesh
     source_landmarks: np.ndarray,  # Landmarks of the source mesh
     target_landmarks: np.ndarray,  # Target Landmarks
+    source_mesh: np.ndarray,  # Coordinates of the mesh/ mesh
 ):
     "Morph the target mesh with RBF function - Thin Plate Spine."
+
     rbf = RBF(
         original_control_points=from_df_to_np(source_landmarks),
         deformed_control_points=from_df_to_np(target_landmarks),
         func="thin_plate_spline",
         radius=1.0,
     )
+
     return rbf(from_df_to_np(source_mesh))
 
 # %% ../nbs/1_morphing.ipynb 7
@@ -51,25 +53,35 @@ def main():
         _merge_path(config["source"]["path"], config["source"]["filename_mesh"])
     )
 
-    if multiple_targets() == bool:  # single target
+    if multiple_targets() == False:  # single target
         target_landmarks = read_landmarks(
             _merge_path(
                 config["target"]["path"], config["target"]["filename_landmarks"]
             )
         )
         _check_landmarks(source_landmarks, target_landmarks)
-        # morphed_mesh = morphing(source_landmarks, target_landmarks, template_mesh)
-        # write_output(morphed_mesh)
+        morphed_mesh = morphing(source_landmarks, target_landmarks, template_mesh)
+        write_output(
+            morphed_mesh,
+            _merge_path(config["target"]["path"], "morphed.key"),
+            _merge_path(config["source"]["path"], config["source"]["filename_mesh"]),
+        )
     else:
         targets_folder = multiple_targets()
         for folder in targets_folder:
-            new_path = os.path.join(
-                config["target"]["path"], folder, config["target"]["filename_landmarks"]
+            folder_path = os.path.join(config["target"]["path"], folder)
+            target_landmarks = read_landmarks(
+                _merge_path(folder_path, config["target"]["filename_landmarks"])
             )
-            target_landmarks = read_landmarks(new_path)
             _check_landmarks(source_landmarks, target_landmarks)
-            # morphed_mesh = morphing(source_landmarks, target_landmarks, template_mesh)
-            # write_output(morphed_mesh)
+            morphed_mesh = morphing(source_landmarks, target_landmarks, template_mesh)
+            write_output(
+                morphed_mesh,
+                _merge_path(folder_path, "morphed.key"),
+                _merge_path(
+                    config["source"]["path"], config["source"]["filename_mesh"]
+                ),
+            )
     return
 
 
