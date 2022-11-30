@@ -46,47 +46,68 @@ def morphing(
 
 
 # %% ../nbs/1_morphing.ipynb 8
-def do_morphing():
+@click.command()
+@click.option(
+    "--name_source",
+    type=str,
+    prompt="Filename of the source mesh",
+    help=" Source mesh name. Indicate complete name and extension.  Example: file.key",
+)
+@click.option(
+    "--landmarks_source",
+    type=str,
+    prompt="Filename landmark source",
+    help=" Source landmarks filename. Indicate complete name and extension.  Example: landmarks.key or landmarks.csv",
+)
+@click.option(
+    "--landmarks_target",
+    type=str,
+    prompt="Filename landmark target",
+    help=" Target landmarks filename. Indicate complete name and extension.  Example: landmarks.key or landmarks.csv",
+)
+@click.option(
+    "--n_target",
+    default=1,
+    type=int,
+    prompt="Number of targets (default is set to 1)",
+    help=" Number of targets. INT format. State the number of targets. If no argument is passed, 1 is default value.",
+)
+def do_morphing(n_target, name_source, landmarks_source, landmarks_target):
+    "Perform morphing."
     config = read_toml()
     source_landmarks = read_landmarks(
-        _merge_path(config["source"]["path"], config["source"]["filename_landmarks"])
+        _merge_path(config["source"]["path"], landmarks_source)
     )
-    template_mesh = read_nodes(
-        _merge_path(config["source"]["path"], config["source"]["filename_mesh"])
-    )
+    template_mesh = read_nodes(_merge_path(config["source"]["path"], name_source))
 
-    if multiple_targets() == False:  # single target
+    if n_target == 1:  # single target
         target_landmarks = read_landmarks(
-            _merge_path(
-                config["target"]["path"], config["target"]["filename_landmarks"]
-            )
+            _merge_path(config["target"]["path"], landmarks_target)
         )
         _check_landmarks(source_landmarks, target_landmarks)
         morphed_mesh = morphing(source_landmarks, target_landmarks, template_mesh)
         write_output(
             morphed_mesh,
             _merge_path(config["target"]["path"], "morphed.key"),
-            _merge_path(config["source"]["path"], config["source"]["filename_mesh"]),
+            _merge_path(config["source"]["path"], name_source),
         )
     else:
         targets_folder = multiple_targets()
         for folder in targets_folder:
             folder_path = os.path.join(config["target"]["path"], folder)
             target_landmarks = read_landmarks(
-                _merge_path(folder_path, config["target"]["filename_landmarks"])
+                _merge_path(folder_path, landmarks_target)
             )
             _check_landmarks(source_landmarks, target_landmarks)
             morphed_mesh = morphing(source_landmarks, target_landmarks, template_mesh)
             write_output(
                 morphed_mesh,
                 _merge_path(folder_path, "morphed.key"),
-                _merge_path(
-                    config["source"]["path"], config["source"]["filename_mesh"]
-                ),
+                _merge_path(config["source"]["path"], name_source),
             )
     return
 
 
-# %% ../nbs/1_morphing.ipynb 10
+# %% ../nbs/1_morphing.ipynb 9
 if __name__ == "__main__":
     do_morphing()

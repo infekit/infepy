@@ -50,9 +50,6 @@ def read_nodes(
         logger.exception("Read_Nodes: No readable files")
         # if mesh_df = None, -> no file read.
 
-# %% ../nbs/0_preprocessing.ipynb 9
-read_nodes(_merge_path(config["source"]["path"], config["source"]["filename_mesh"]))
-
 # %% ../nbs/0_preprocessing.ipynb 10
 def read_landmarks(
     path_to_file: str,  # .csv or .key file containing Landmarks
