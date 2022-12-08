@@ -140,12 +140,14 @@ class RBF(Deformation):
         original_control_points=None,
         deformed_control_points=None,
         func="gaussian_spline",
-        radius=0.5,
+        smoothing=None,
+        radius=1,
         extra_parameter=None,
     ):
-
+        print(func, smoothing)
         self.basis = func
         self.radius = radius
+        self.smoothing = smoothing
 
         if original_control_points is None:
             self.original_control_points = np.array(
@@ -241,6 +243,8 @@ class RBF(Deformation):
         H[:npts, npts] = 1.0
         H[:npts, -3:] = X
         H[-3:, :npts] = X.T
+        if self.smoothing:
+            np.fill_diagonal(H[:npts, :npts], self.smoothing)
 
         rhs = np.zeros((npts + 3 + 1, dim))
         rhs[:npts, :] = Y
