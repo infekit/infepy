@@ -8,10 +8,10 @@ import numpy as np
 import pandas as pd
 import logging
 
-# %% ../nbs/00_test.ipynb 2
+# %% ../nbs/00_test.ipynb 4
 from .preprocessing import _check_landmarks
 
-# %% ../nbs/00_test.ipynb 3
+# %% ../nbs/00_test.ipynb 5
 def _test_landmarks():
     s = {"a": ["Head", "Shaft", "Epiphysis"], "A": [0, 1, 0]}
     t = {"a": ["Head", "Shaft", "Epiphysis"], "A": [0, 1, 1]}
