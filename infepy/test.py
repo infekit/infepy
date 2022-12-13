@@ -3,15 +3,14 @@
 # %% auto 0
 __all__ = []
 
-# %% ../nbs/000_test.ipynb 1
+# %% ../nbs/000_test.ipynb 2
 import numpy as np
 import pandas as pd
-import logging
 
-# %% ../nbs/000_test.ipynb 4
+# %% ../nbs/000_test.ipynb 3
 from .preprocessing import _check_landmarks
 
-# %% ../nbs/000_test.ipynb 5
+# %% ../nbs/000_test.ipynb 4
 def _test_landmarks():
     s = {"a": ["Head", "Shaft", "Epiphysis"], "A": [0, 1, 0]}
     t = {"a": ["Head", "Shaft", "Epiphysis"], "A": [0, 1, 1]}

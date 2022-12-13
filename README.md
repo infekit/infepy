@@ -11,12 +11,16 @@ infepy
 pip install infepy
 ```
 
-## How to use
+## To install locally:
 
-Fill me in please! Don’t forget code examples:
+``` sh
+git clone https://github.com/infekit/infepy
 
-``` python
-1+1
+Insert data folders (source,target landmarks and source mesh), modify the config.toml
+
+pip install -e path-to-cloned-repo
+
+cd into-repo
+
+from CL python morph.py --function name --smoothing value [default settings: Function: "thin_plate_spline", smoothing = 0 ]
 ```
-
-    2

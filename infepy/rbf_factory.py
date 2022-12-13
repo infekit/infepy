@@ -25,6 +25,7 @@ class RBFFactory:
         >>>     y = RBFFactory(fname)(x)
     """
 
+    # MODIFIED: Added method.
     @staticmethod
     def euclidean(X, r=1):
         """

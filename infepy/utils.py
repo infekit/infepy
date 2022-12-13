@@ -71,7 +71,7 @@ def read_k_file(
 def read_csv_file(path_to_file: str) -> pd.DataFrame:
     "This function read csv files in format id, x, y,z. to Pandas DataFrame"
     with open(path_to_file) as fp:
-        df = pd.read_csv(fp, header=None)
+        df = pd.read_csv(fp, header=None, comment="#")
         df = df.iloc[:, :4]
         df.columns = ["Label - node id", "x", "y", "z"]
     return df
