@@ -4,7 +4,6 @@
 __all__ = ['config', 'read_toml', 'read_nodes', 'read_landmarks', 'write_output']
 
 # %% ../nbs/1_preprocessing.ipynb 3
-import logging
 import os
 import numpy as np
 import pandas as pd
@@ -23,7 +22,6 @@ def read_toml(config_file="Config.toml"):  # Path to the config file
     return config
 
 
-print(os.getcwd())
 config = read_toml()
 
 # %% ../nbs/1_preprocessing.ipynb 8
@@ -58,15 +56,6 @@ def read_landmarks(
     assert not landmarks_df.empty
     return landmarks_df
 
-
-# except:
-#     logger.exception("Read_Landamarks - No readable files")
-
-# %% ../nbs/1_preprocessing.ipynb 11
-read_landmarks(
-    _merge_path(config["source"]["path"], config["source"]["filename_landmarks"])
-)
-
 # %% ../nbs/1_preprocessing.ipynb 12
 def _check_landmarks(
     source: pd.DataFrame, target: pd.DataFrame  # Source dataframe  # Target dataframe
@@ -88,9 +77,6 @@ def _check_landmarks(
     # Sort them
     # if they dont match, return exception -->
     return
-
-# %% ../nbs/1_preprocessing.ipynb 13
-_merge_path(config["target"]["path"], config["target"]["filename_landmarks"])
 
 # %% ../nbs/1_preprocessing.ipynb 17
 def write_output(
