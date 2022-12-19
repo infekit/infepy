@@ -2,8 +2,9 @@ website:
   sidebar:
     contents:
       - index.ipynb
-      - 00_test.ipynb
-      - 0_preprocessing.ipynb
-      - 1_morphing.ipynb
+      - 000_test.ipynb
+      - 00_rbf.ipynb
+      - 0_segmentation.ipynb
+      - 1_preprocessing.ipynb
       - 2_utils.ipynb
-      - rbf.ipynb
+      - 3_morphing.ipynb
