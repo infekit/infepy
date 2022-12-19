@@ -16,7 +16,7 @@ import toml
 from .utils import _merge_path
 
 # %% ../nbs/1_preprocessing.ipynb 7
-def read_toml(config_file="Config.toml"):  # Path to the config file
+def read_toml(config_file="../data/Config.toml"):  # Path to the config file
     "Read setting file. The File containes the relative path to source and target."
     config = toml.load(config_file)
     return config

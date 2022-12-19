@@ -10,7 +10,8 @@ import pandas as pd
 import toml
 
 # %% ../nbs/2_utils.ipynb 4
-def read_toml(config_file="Config.toml"):  # Path to the config file
+def read_toml(config_file="../data/Config.toml"):  # Path to the config file
+    print(config_file)
     "Read setting file. The File containes the relative path to source and target."
     config = toml.load(config_file)
     return config
@@ -24,9 +25,6 @@ config
 def _merge_path(path1: str, path2: str) -> str:
     "Join one or more path components. Return the join path in str type."
     return os.path.join(path1, path2)
-
-# %% ../nbs/2_utils.ipynb 7
-_merge_path(config["source"]["path"], config["source"]["filename_mesh"])
 
 # %% ../nbs/2_utils.ipynb 8
 def multiple_targets():
@@ -42,9 +40,6 @@ def multiple_targets():
         return False
     else:
         return list_target
-
-# %% ../nbs/2_utils.ipynb 9
-multiple_targets()
 
 # %% ../nbs/2_utils.ipynb 10
 def read_k_file(
@@ -78,9 +73,6 @@ def read_k_file(
     df.columns = ["Label - node id", "x", "y", "z"]
     return df
 
-# %% ../nbs/2_utils.ipynb 11
-read_k_file(_merge_path(config["source"]["path"], config["source"]["filename_mesh"]))
-
 # %% ../nbs/2_utils.ipynb 12
 def read_csv_file(path_to_file: str) -> pd.DataFrame:
     "This function read csv files in format id, x, y,z. to Pandas DataFrame"
@@ -108,9 +100,6 @@ def from_df_to_np(df: pd.DataFrame) -> np.ndarray:
         raise Exception(
             "Invalid number of column in the Dataframe. Expected either 3 or 4 columns. "
         )
-
-# %% ../nbs/2_utils.ipynb 15
-from_df_to_np(df)  # return np.array
 
 # %% ../nbs/2_utils.ipynb 16
 def to_ls_dyna(number):

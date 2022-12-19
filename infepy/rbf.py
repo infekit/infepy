@@ -85,31 +85,13 @@ class RBF(Deformation):
     Class that handles the Radial Basis Functions interpolation on the mesh
     points.
 
-    :param numpy.ndarray original_control_points: it is an
-        (*n_control_points*, *3*) array with the coordinates of the original
-        interpolation control points before the deformation. The default is the
-        vertices of the unit cube.
-    :param numpy.ndarray deformed_control_points: it is an
-        (*n_control_points*, *3*) array with the coordinates of the
-        interpolation control points after the deformation. The default is the
-        vertices of the unit cube.
-    :param func: the basis function to use in the transformation. Several basis
-        function are already implemented and they are available through the
-        :py:class:`~pygem.rbf.RBF` by passing the name of the right
-        function (see class documentation for the updated list of basis
-        function).  A callable object can be passed as basis function.
-    :param float radius: the scaling parameter r that affects the shape of the
-        basis functions.  For details see the class
-        :class:`RBF`. The default value is 0.5.
-    :param dict extra_parameter: the additional parameters that may be passed to
-        the kernel function. Default is None.
-
-    :cvar numpy.ndarray weights: the matrix formed by the weights corresponding
+    Returns:
+    weights: the matrix formed by the weights corresponding
         to the a-priori selected N control points, associated to the basis
         functions and c and Q terms that describe the polynomial of order one
         p(x) = c + Qx.  The shape is (*n_control_points+1+3*, *3*). It is
         computed internally.
-    :cvar numpy.ndarray original_control_points: it is an
+    original_control_points: it is an
         (*n_control_points*, *3*) array with the coordinates of the original
         interpolation control points before the deformation.
     :cvar numpy.ndarray deformed_control_points: it is an
@@ -137,11 +119,11 @@ class RBF(Deformation):
 
     def __init__(
         self,
-        original_control_points=None,
-        deformed_control_points=None,
-        func="thin_plate_spline",  # MODIFIED: default is thin plate spline
-        radius=1,
-        smoothing=None,  # MODIFIED: added paramter.
+        original_control_points=None,  # (*n_control_points*, *3*) array with the coordinates of the original interpolation control points before the deformation. The default is the vertices of the unit cube.
+        deformed_control_points=None,  #  it is an (*n_control_points*, *3*) array with the coordinates of the interpolation control points after the deformation. The default is the vertices of the unit cube.
+        func="thin_plate_spline",  # MODIFIED: DEFAULT is thin plate spline. Several basis function are already implemented and they are available through the :py:class:`~pygem.rbf.RBF` by passing the name of the right function
+        radius=1,  # the scaling parameter r that affects the shape of the basis functions
+        smoothing=None,  # MODIFIED: added parameter.
         extra_parameter=None,
     ):
 
