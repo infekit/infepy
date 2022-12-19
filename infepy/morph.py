@@ -3,18 +3,18 @@
 # %% auto 0
 __all__ = ['parser', 'morphing', 'do_morphing']
 
-# %% ../nbs/3_morphing.ipynb 3
+# %% ../nbs/3_morphing.ipynb 4
 import os
 import numpy as np
 import click
 from argparse import ArgumentParser
 
-# %% ../nbs/3_morphing.ipynb 4
+# %% ../nbs/3_morphing.ipynb 5
 import infepy.rbf as rbf
 import infepy.preprocessing as pre
 import infepy.utils as utils
 
-# %% ../nbs/3_morphing.ipynb 5
+# %% ../nbs/3_morphing.ipynb 6
 def morphing(
     source_landmarks: np.ndarray,  # Landmarks of the source mesh
     target_landmarks: np.ndarray,  # Target Landmarks
@@ -34,7 +34,7 @@ def morphing(
 
     return rad_bas_fun(utils.from_df_to_np(source_mesh))
 
-# %% ../nbs/3_morphing.ipynb 7
+# %% ../nbs/3_morphing.ipynb 8
 parser = ArgumentParser(description="Morphing function")
 parser.add_argument(
     "--function",
@@ -93,7 +93,7 @@ def do_morphing(func, smoothing):
             )
     return
 
-# %% ../nbs/3_morphing.ipynb 9
+# %% ../nbs/3_morphing.ipynb 10
 if __name__ == "__main__":
     args = parser.parse_args()
     print("Radial Basis Function: ", args.function)
