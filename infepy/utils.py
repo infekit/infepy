@@ -10,23 +10,23 @@ import pandas as pd
 import toml
 
 # %% ../nbs/2_utils.ipynb 4
-def read_toml(config_file="../data/Config.toml"):  # Path to the config file
+def read_toml(config_file="../test_data/Config.toml"):  # Path to the config file
     print(config_file)
     "Read setting file. The File containes the relative path to source and target."
     config = toml.load(config_file)
     return config
 
-# %% ../nbs/2_utils.ipynb 5
+# %% ../nbs/2_utils.ipynb 6
 # Here an example on how to structure a config.toml file.
 config = read_toml()
 config
 
-# %% ../nbs/2_utils.ipynb 6
+# %% ../nbs/2_utils.ipynb 7
 def _merge_path(path1: str, path2: str) -> str:
     "Join one or more path components. Return the join path in str type."
     return os.path.join(path1, path2)
 
-# %% ../nbs/2_utils.ipynb 8
+# %% ../nbs/2_utils.ipynb 9
 def multiple_targets():
     "This function checks if the there are multiple target subject."
     config = read_toml()
@@ -41,7 +41,7 @@ def multiple_targets():
     else:
         return list_target
 
-# %% ../nbs/2_utils.ipynb 10
+# %% ../nbs/2_utils.ipynb 11
 def read_k_file(
     path_to_file: str,  # File to read from
 ) -> pd.DataFrame:  # Dataframe of shape [n_nodes, [ID,x,y,z]]
@@ -73,7 +73,7 @@ def read_k_file(
     df.columns = ["Label - node id", "x", "y", "z"]
     return df
 
-# %% ../nbs/2_utils.ipynb 12
+# %% ../nbs/2_utils.ipynb 13
 def read_csv_file(path_to_file: str) -> pd.DataFrame:
     "This function read csv files in format id, x, y,z. to Pandas DataFrame"
     with open(path_to_file) as fp:
@@ -82,13 +82,13 @@ def read_csv_file(path_to_file: str) -> pd.DataFrame:
         df.columns = ["Label - node id", "x", "y", "z"]
     return df
 
-# %% ../nbs/2_utils.ipynb 13
+# %% ../nbs/2_utils.ipynb 14
 df = read_csv_file(
     _merge_path(config["source"]["path"], config["source"]["filename_landmarks"])
 )
 df
 
-# %% ../nbs/2_utils.ipynb 14
+# %% ../nbs/2_utils.ipynb 15
 def from_df_to_np(df: pd.DataFrame) -> np.ndarray:
     "This function transform a pd.Dataframe of shape [ID, x,y,z] to numpy array of coordinates [x,y,z]"
     if len(df.columns) == 4:
@@ -101,9 +101,9 @@ def from_df_to_np(df: pd.DataFrame) -> np.ndarray:
             "Invalid number of column in the Dataframe. Expected either 3 or 4 columns. "
         )
 
-# %% ../nbs/2_utils.ipynb 16
+# %% ../nbs/2_utils.ipynb 17
 def to_ls_dyna(number):
     return "{:16f}".format(number)
 
-# %% ../nbs/2_utils.ipynb 17
+# %% ../nbs/2_utils.ipynb 18
 to_ls_dyna(6.8)
