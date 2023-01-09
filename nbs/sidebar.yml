@@ -2,7 +2,6 @@ website:
   sidebar:
     contents:
       - index.ipynb
-      - 000_test.ipynb
       - 00_rbf.ipynb
       - 0_segmentation.ipynb
       - 1_preprocessing.ipynb
