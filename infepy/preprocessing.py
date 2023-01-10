@@ -11,19 +11,19 @@ import pandas as pd
 # %% ../nbs/1_preprocessing.ipynb 4
 from .utils import read_k_file, read_csv_file, to_ls_dyna
 
-# %% ../nbs/1_preprocessing.ipynb 6
+# %% ../nbs/1_preprocessing.ipynb 5
 import toml
 from .utils import _merge_path
 
-# %% ../nbs/1_preprocessing.ipynb 7
+# %% ../nbs/1_preprocessing.ipynb 6
 def read_toml(config_file="../test_data/config.toml"):  # Path to the config file
     "Read setting file. The File containes the relative path to source and target."
     config = toml.load(config_file)
     return config
 
-# %% ../nbs/1_preprocessing.ipynb 8
+# %% ../nbs/1_preprocessing.ipynb 7
 def read_nodes(
-    path_to_file: str,  # path to file containing source template
+    path_to_file: str,  # Path to file containing source template from the config file.
 ) -> pd.DataFrame:  # Numpy array of shape [n_nodes, x,y,z_displacement]
     "Read the nodes from the source template. The source template must be either a .key/.k file or .csv"
 
@@ -32,13 +32,12 @@ def read_nodes(
     elif path_to_file.endswith(".key") or path_to_file.endswith(".k"):
         mesh_df = read_k_file(path_to_file)
     return mesh_df
-
     # if mesh_df = None, -> no file read.
 
-# %% ../nbs/1_preprocessing.ipynb 10
+# %% ../nbs/1_preprocessing.ipynb 9
 def read_landmarks(
-    path_to_file: str,  # .csv or .key file containing Landmarks
-) -> pd.DataFrame:  # Dataframe of length [n_landmarks] divided in columns [ID - label, x,y,z]
+    path_to_file: str,  # File containing Landmarks
+) -> pd.DataFrame:  # Dataframe of length [n_landmarks]. Columns format [ID - label, x,y,z]
     "Read the landmarks from .csv/.key/.k file."
     file_exist = False
     if path_to_file.endswith(".csv") or path_to_file.endswith(".fcsv"):
@@ -50,7 +49,7 @@ def read_landmarks(
     assert not landmarks_df.empty
     return landmarks_df
 
-# %% ../nbs/1_preprocessing.ipynb 12
+# %% ../nbs/1_preprocessing.ipynb 11
 def _check_landmarks(
     source: pd.DataFrame, target: pd.DataFrame  # Source dataframe  # Target dataframe
 ):
@@ -72,13 +71,13 @@ def _check_landmarks(
     # if they dont match, return exception -->
     return
 
-# %% ../nbs/1_preprocessing.ipynb 17
+# %% ../nbs/1_preprocessing.ipynb 14
 def write_output(
     morphed_mesh: np.ndarray,  # Morphed mesh
-    morphed_file: np.ndarray,  #  path to directory to save the file
-    mesh_file: np.ndarray,  # path to the source mesh from read_setting()
+    morphed_file: np.ndarray,  #  Path to directory to save the file
+    mesh_file: np.ndarray,  # Path to the source mesh from config file
 ):
-    "Write an output file for the morphed mesh in key file format."
+    "Write output file for the morphed mesh in .key file format."
     if not os.path.exists(morphed_file):  # write the file if doesn´t exist
         open(morphed_file, "w").close()
 

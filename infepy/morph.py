@@ -14,7 +14,7 @@ import infepy.rbf as rbf
 import infepy.preprocessing as pre
 import infepy.utils as utils
 
-# %% ../nbs/3_morphing.ipynb 7
+# %% ../nbs/3_morphing.ipynb 6
 def morphing(
     source_landmarks: np.ndarray,  # Landmarks of the source mesh
     target_landmarks: np.ndarray,  # Target Landmarks
@@ -34,7 +34,7 @@ def morphing(
 
     return rad_bas_fun(utils.from_df_to_np(source_mesh))
 
-# %% ../nbs/3_morphing.ipynb 9
+# %% ../nbs/3_morphing.ipynb 8
 parser = ArgumentParser(description="Morphing function")
 parser.add_argument(
     "--function",

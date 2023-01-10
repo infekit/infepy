@@ -20,110 +20,20 @@ try:
 except ImportError:
     import ConfigParser as configparser
 
-# %% ../nbs/00_rbf.ipynb 6
-"""
-Module focused on the implementation of the Radial Basis Functions interpolation
-technique.  This technique is still based on the use of a set of parameters, the
-so-called control points, as for FFD, but RBF is interpolatory. Another
-important key point of RBF strategy relies in the way we can locate the control
-points: in fact, instead of FFD where control points need to be placed inside a
-regular lattice, with RBF we hano no more limitations. So we have the
-possibility to perform localized control points refiniments.
-The module is analogous to the freeform one.
-
-:Theoretical Insight:
-
-    As reference please consult M.D. Buhmann, Radial Basis Functions, volume 12
-    of Cambridge monographs on applied and computational mathematics. Cambridge
-    University Press, UK, 2003.  This implementation follows D. Forti and G.
-    Rozza, Efficient geometrical parametrization techniques of interfaces for
-    reduced order modelling: application to fluid-structure interaction coupling
-    problems, International Journal of Computational Fluid Dynamics.
-
-    RBF shape parametrization technique is based on the definition of a map,
-    :math:`\\mathcal{M}(\\boldsymbol{x}) : \\mathbb{R}^n \\rightarrow
-    \\mathbb{R}^n`, that allows the possibility of transferring data across
-    non-matching grids and facing the dynamic mesh handling. The map introduced
-    is defines as follows
-
-    .. math::
-        \\mathcal{M}(\\boldsymbol{x}) = p(\\boldsymbol{x}) + 
-        \\sum_{i=1}^{\\mathcal{N}_C} \\gamma_i
-        \\varphi(\\| \\boldsymbol{x} - \\boldsymbol{x_{C_i}} \\|)
-
-    where :math:`p(\\boldsymbol{x})` is a low_degree polynomial term,
-    :math:`\\gamma_i` is the weight, corresponding to the a-priori selected
-    :math:`\\mathcal{N}_C` control points, associated to the :math:`i`-th basis
-    function, and :math:`\\varphi(\\| \\boldsymbol{x} - \\boldsymbol{x_{C_i}}
-    \\|)` a radial function based on the Euclidean distance between the control
-    points position :math:`\\boldsymbol{x_{C_i}}` and :math:`\\boldsymbol{x}`.
-    A radial basis function, generally, is a real-valued function whose value
-    depends only on the distance from the origin, so that
-    :math:`\\varphi(\\boldsymbol{x}) = \\tilde{\\varphi}(\\| \\boldsymbol{x}
-    \\|)`.
-
-    The matrix version of the formula above is:
-
-    .. math::
-        \\mathcal{M}(\\boldsymbol{x}) = \\boldsymbol{c} +
-        \\boldsymbol{Q}\\boldsymbol{x} +
-        \\boldsymbol{W^T}\\boldsymbol{d}(\\boldsymbol{x})
-
-    The idea is that after the computation of the weights and the polynomial
-    terms from the coordinates of the control points before and after the
-    deformation, we can deform all the points of the mesh accordingly.  Among
-    the most common used radial basis functions for modelling 2D and 3D shapes,
-    we consider Gaussian splines, Multi-quadratic biharmonic splines, Inverted
-    multi-quadratic biharmonic splines, Thin-plate splines, Beckert and
-    Wendland :math:`C^2` basis and Polyharmonic splines all defined and
-    implemented below.
-"""
-
-
+# %% ../nbs/00_rbf.ipynb 7
 class RBF(Deformation):
     """
     Class that handles the Radial Basis Functions interpolation on the mesh
     points.
-
-    Returns:
-    weights: the matrix formed by the weights corresponding
-        to the a-priori selected N control points, associated to the basis
-        functions and c and Q terms that describe the polynomial of order one
-        p(x) = c + Qx.  The shape is (*n_control_points+1+3*, *3*). It is
-        computed internally.
-    original_control_points: it is an
-        (*n_control_points*, *3*) array with the coordinates of the original
-        interpolation control points before the deformation.
-    :cvar numpy.ndarray deformed_control_points: it is an
-        (*n_control_points*, *3*) array with the coordinates of the
-        interpolation control points after the deformation.
-    :cvar callable basis: the basis functions to use in the
-        transformation.
-    :cvar float radius: the scaling parameter that affects the shape of the
-        basis functions.
-    :cvar dict extra_parameter: the additional parameters that may be passed to
-        the kernel function.
-
-    :Example:
-
-        >>> from pygem import RBF
-        >>> import numpy as np
-        >>> rbf = RBF('gaussian_spline')
-        >>> xv = np.linspace(0, 1, 20)
-        >>> yv = np.linspace(0, 1, 20)
-        >>> zv = np.linspace(0, 1, 20)
-        >>> z, y, x = np.meshgrid(zv, yv, xv)
-        >>> mesh = np.array([x.ravel(), y.ravel(), z.ravel()])
-        >>> deformed_mesh = rbf(mesh)
     """
 
     def __init__(
         self,
-        original_control_points=None,  # (*n_control_points*, *3*) array with the coordinates of the original interpolation control points before the deformation. The default is the vertices of the unit cube.
-        deformed_control_points=None,  #  it is an (*n_control_points*, *3*) array with the coordinates of the interpolation control points after the deformation. The default is the vertices of the unit cube.
-        func="thin_plate_spline",  # MODIFIED: DEFAULT is thin plate spline. Several basis function are already implemented and they are available through the :py:class:`~pygem.rbf.RBF` by passing the name of the right function
-        radius=1,  # the scaling parameter r that affects the shape of the basis functions
-        smoothing=None,  # MODIFIED: added parameter.
+        original_control_points=None,  # (*n_control_points*, *3*) array with the coordinates of the original interpolation control points before the deformation. *Default is the vertices of the unit cube.*
+        deformed_control_points=None,  # (*n_control_points*, *3*) array with the coordinates of the interpolation control points after the deformation. *Default is the vertices of the unit cube.*
+        func="thin_plate_spline",  # MODIFIED: DEFAULT is **thin plate spline**. Several basis function are already implemented and they are available through the `~pygem.rbf.RBF` by passing the name of the right function.
+        radius=1,  # Scaling parameter that affects the shape of the basis functions.
+        smoothing=None,  # MODIFIED: added parameter. IF defined, a constant values will be added on the diagonal of the matrix Dcc. Suggested value: 0.1
         extra_parameter=None,
     ):
 
