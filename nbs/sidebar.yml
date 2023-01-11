@@ -2,8 +2,8 @@ website:
   sidebar:
     contents:
       - index.ipynb
-      - 00_rbf.ipynb
       - 0_segmentation.ipynb
       - 1_preprocessing.ipynb
       - 2_utils.ipynb
       - 3_morphing.ipynb
+      - 4_rbf.ipynb
