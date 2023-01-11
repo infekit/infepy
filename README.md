@@ -5,6 +5,8 @@ infepy
 
 ![workflow of infe](images/workflow_infe.png)
 
+![Morphing](images/screen_recording.mp4)
+
 ## Install
 
 ``` sh

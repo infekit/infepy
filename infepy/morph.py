@@ -92,3 +92,11 @@ def do_morphing(func, smoothing):
                 ),
             )
     return
+
+# %% ../nbs/3_morphing.ipynb 10
+# |eval: false
+if __name__ == "__main__":
+    args = parser.parse_args()
+    print("Radial Basis Function: ", args.function)
+    print("Smoothing factor: ", args.smoothing)
+    do_morphing(args.function, args.smoothing)
