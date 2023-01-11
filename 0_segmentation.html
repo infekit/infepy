@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Segmentation and Landmarking Tutorial with 3DSlicer.">
+
+<title>infepy - Segmentation &amp; Landmarking</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="infepy - Segmentation &amp; Landmarking">
+<meta property="og:description" content="Segmentation and Landmarking Tutorial with 3DSlicer.">
+<meta property="og:site-name" content="infepy">
+<meta name="twitter:title" content="infepy - Segmentation &amp; Landmarking">
+<meta name="twitter:description" content="Segmentation and Landmarking Tutorial with 3DSlicer.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">infepy</span>
+    </a>
+  </div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Segmentation &amp; Landmarking</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">infepy</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./rbf.html" class="sidebar-item-text sidebar-link">Pygem Module of Radial Basis Function</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./0_segmentation.html" class="sidebar-item-text sidebar-link active">Segmentation &amp; Landmarking</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1_preprocessing.html" class="sidebar-item-text sidebar-link">Preprocessing</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2_utils.html" class="sidebar-item-text sidebar-link">Utils</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3_morphing.html" class="sidebar-item-text sidebar-link">Morphing</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#segmentation" id="toc-segmentation" class="nav-link active" data-scroll-target="#segmentation">Segmentation</a></li>
+  <li><a href="#landmarking" id="toc-landmarking" class="nav-link" data-scroll-target="#landmarking">Landmarking</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/infekit/infepy/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Segmentation &amp; Landmarking</h1>
+</div>
+
+<div>
+  <div class="description">
+    Segmentation and Landmarking Tutorial with 3DSlicer.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<section id="segmentation" class="level1">
+<h1>Segmentation</h1>
+<hr>
+<ul>
+<li><h2 id="load-the-volume" class="anchored" data-anchor-id="segmentation">Load the volume</h2>
+<ul>
+<li>On the upper left, click on DCM, Under section “Reload &amp; Test”, click on “Import DICOM files”. Choose the files from the directory.</li>
+<li>On the import DICOM page, under in the “Series” option, select the volume to import and click on Examine, then Load.</li>
+</ul></li>
+<li><h2 id="crop-the-volume" class="anchored">Crop the Volume</h2>
+<ul>
+<li>Press the “lens” button (in the upper part of the window) and search for the Module “Crop Volume” and click on Switch to Module.</li>
+<li>On the menu on the right, under section IO, select the Input Volume, select the volume just loaded.</li>
+<li>In the Input ROI: select “Create a new ROI”</li>
+<li>In the Advance section, Tick the “interpolated cropping” and “Isotropic Spacing”.</li>
+<li>Now move around the box in the different views to select only the volume of interest &amp; Apply.</li>
+<li>From now on the ROI markers are of no use. On the Data module, click on the eye button, to make the ROI invisible. Will make it easy to work with the next steps.</li>
+</ul></li>
+<li><h2 id="volume-module." class="anchored">Volume Module.</h2>
+<ul>
+<li>Under Display setting, select the CT-bone set up (The first on the left), Threshold level should be around [W:1000,L:400]. The goal of this step is to increase the contrast between the bones , or area of interest, from the surrounding tissues.</li>
+</ul></li>
+<li><h2 id="segment-editor-module." class="anchored">Segment editor module.</h2>
+<ul>
+<li><p>on the Segmentation Module, on the right click on the “Add” button. Let´s add 2 segments, one for the bone to segment (i.d. “Humerus”), and the other for everything else (i.d. “Other). Double click on them to rename them.</p></li>
+<li><p>In the option, select the “Treshold”, select a level between [160,2976] and click on “Use for Masking”. (The optimal level is when the area highlighted is the bone, but not the surrounding tissues. Be careful on not outfilter some of the interested area. It´s better to have some surrounding tissue rather than erase some areas of interest).</p></li>
+<li><p>Let´s use semi-automatic segmentation. Go to “Grow from Seeds” and click on Initialize.</p></li>
+<li><p>Go to the brush option and paint on the single slice views, several slices for view. The more time spent in this part, the better the segmentation will be. Make sure to color for both the segments to help the module to differentiate between the parts.</p></li>
+<li><p>After, go back to “Grown from Seeds” and click on Apply. Click on “Show 3D” to render the 3D view.</p></li>
+<li><p>Toggle the visibility of the “Other” segment to assess the segmentation.</p>
+<ul>
+<li>If unsatisfied or the segmentation present holes, go back to the Treshold and vary the the threshold level. Click again on Use for masking. Go to Grow from seed “Initialize”, to the paint option and color the missing parts. Spend more time on painting the segments. It is important to Zoom on the slices and paint the edges of the segment to indicate to what they belong. Click on apply, to have an updated version of the segmentation.</li>
+</ul></li>
+<li><p>Once done with the segmentation, if there are some spikes use the “Scissor” setting to cut out the smaller island. Make sure you have the segment selected when cutting out the island for that segment.</p></li>
+<li><p>To smooth out the surface, go on the “Smoothing” option and apply a “Median” filter to smooth out the surface (use a small kernel of 2/3 mm).</p></li>
+<li><p>Use also the filter “Closing - Fill holes”, this time select an higher kernel (5/6 mm ). To address single spots, under the setting “Smoothing brush option”, click on Edit in 3D view to paint in 3D view and close the local holes.</p></li>
+<li><p>If satisfied with the segmentation, go on the Data Module, Under the Segmentation hierarchy, right-click on the Bone segment and Export to file. Choose the STL version.</p></li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="landmarking" class="level1">
+<h1>Landmarking</h1>
+<hr>
+<ul>
+<li><p>Once obtained a volume, go to the “Markup” Module</p></li>
+<li><p>To create landmarks, click on “Point list” and rename the setting.</p></li>
+<li><p>To change the size of the control point go on Display and change the “Glyph size” to your liking.</p></li>
+<li><p>To be able to place multiple points in sequence go to “Place a Control point” (Simbol with blue arrow and red dot) in the upper part of the Window. Click on the arrow, and select “Place Multiple Control Points”.</p></li>
+<li><p>To have overview of the point in the left part go to the setting “Control point” and from there it is possible to rename the point or add a description.</p></li>
+<li><p>If want to place a curve, click on “Curve” and place few the control points. Go in “Curve Settings” and for Constrain Model select the volume segmented. (This way the sampled points will be taken on the surface).</p></li>
+<li><p>If want to resample the curve, go to “Resample” and select under “Number of resampled points” the number of point to resample the curve. The resample setting will place equidistant points. Go back to every single curve point to assure they are in the intended position. The resample option tends to move the landamrks. (Make sure the output node setting is to “Overwrite current node”). IF the resample nodes are not along the surface, in “Curve settings” go to Advance and increase the Maximum projection distance. Then click again on “Resample”.</p></li>
+<li><p>Once registered the landmarks, go on “Save”. First save then entire scene in mrb format. To save single file, click on the purple box:</p>
+<ul>
+<li>deselect all the items</li>
+<li>select only one of interest (the segmentation volume and landmarks)</li>
+<li>Select the destination folder</li>
+<li>select the file format (fcsv for landmarks)</li>
+</ul></li>
+<li><p>The landmarking is complete.</p></li>
+<li><p>If there are both landmarks and curves, the files will be save separately. There is the option to merge them. Download th extension “Slicer Morph” and restart slicer. Open Slicer, load the fcsv file to be merged (click on “Data”, search for files and load). Search the extension MergeMarKups through the lens search button. Now, go to “Merge Landmarks set” select the files you uploaded and click on Merge Highlighted nodes. A new set of landmarks will appear. Save it and use it for the morphing phase.</p></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

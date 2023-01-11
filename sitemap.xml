@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://infekit.github.io/infepy/index.html</loc>
+    <lastmod>2023-01-11T10:04:30.763Z</lastmod>
+  </url>
+  <url>
+    <loc>https://infekit.github.io/infepy/rbf.html</loc>
+    <lastmod>2023-01-11T10:04:31.419Z</lastmod>
+  </url>
+  <url>
+    <loc>https://infekit.github.io/infepy/1_preprocessing.html</loc>
+    <lastmod>2023-01-11T10:04:31.735Z</lastmod>
+  </url>
+  <url>
+    <loc>https://infekit.github.io/infepy/2_utils.html</loc>
+    <lastmod>2023-01-11T10:04:32.039Z</lastmod>
+  </url>
+  <url>
+    <loc>https://infekit.github.io/infepy/3_morphing.html</loc>
+    <lastmod>2023-01-11T10:04:32.331Z</lastmod>
+  </url>
+  <url>
+    <loc>https://infekit.github.io/infepy/0_segmentation.html</loc>
+    <lastmod>2023-01-11T10:04:32.675Z</lastmod>
+  </url>
+</urlset>
