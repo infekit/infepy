@@ -6,7 +6,7 @@ infepy
 Infepy applies morphing. Given a source mesh, source landmarks and
 target landmarks it morphs the source mesh to a target geometry.
 
-![Infe](images/infe.PNG)
+![Infe](images/Infe.PNG)
 
 For documentation: [Documentation](https://infekit.github.io/infepy/)
 
@@ -21,7 +21,7 @@ Open with Vscode. Open bash terminal and type:
     -   conda create --name infekit-test python=3.9
     -   conda activate infekit-test
     -   pip install nbdev
-   -    pip install -e infepy
+    -   pip install -e infepy
    
 Insert data folders (source,target landmarks and source mesh), modify the config.toml
 ```
@@ -38,5 +38,5 @@ pip install -e path-to-cloned-repo
 cd infepy
 cd infepy
 
-from CL into directory *..Github/infepy/infepy*:   python morph.py --function name --smoothing value [default settings: Function: "thin_plate_spline", smoothing = 0 ]
+from CL into directory ..Github/infepy/infepy :   python morph.py --function NAME --smoothing VALUE [default settings: Function: "thin_plate_spline", smoothing = 0 ]
 ```
