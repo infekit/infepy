@@ -8,26 +8,24 @@ landmarks and target landmarks it morphs the source mesh to a target
 geometry by appling Radial Basis Function. The source mesh must a be
 Ls-Dyna .key files while the landmarks file are accepter in either .csv
 or .key file. The target could be either one or multiple item (explained
-[here](https://infekit.github.io/infepy/3_morphing.html))
+[here](https://infekit.github.io/infepy/3_morphing.html) for more
+details).
 
 ![Infe](images/Infe.PNG)
 
 For documentation: [Documentation](https://infekit.github.io/infepy/)
 
-“[<video src="images/screen_recording.mp4" controls=""><a
-href="images/screen_recording.mp4">Video</a></video>](images/screen_recording.mp4)”
-
 ## Install
 
 ``` sh
 git clone https://github.com/infekit/infepy
-Open with Vscode. Open bash terminal and type: 
+Open bash terminal and type: 
     -   conda create --name infekit-test python=3.9
     -   conda activate infekit-test
     -   pip install nbdev
     -   pip install -e infepy
    
-Insert data folders (source,target landmarks and source mesh), modify the config.toml
+Insert data folders (source,target landmarks and source mesh), and modify the config.toml
 ```
 
 ## To run:
@@ -35,3 +33,6 @@ Insert data folders (source,target landmarks and source mesh), modify the config
 ``` sh
 from CL into directory ..Github/infepy/infepy :   python morph.py --function NAME --smoothing VALUE [default settings: Function: "thin_plate_spline", smoothing = 0 ]
 ```
+
+“[<video src="images/screen_recording.mp4" controls=""><a
+href="images/screen_recording.mp4">Video</a></video>](images/screen_recording.mp4)”
