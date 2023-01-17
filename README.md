@@ -23,7 +23,7 @@ Open bash terminal and type:
     -   conda create --name infekit-test python=3.9
     -   conda activate infekit-test
     -   pip install nbdev
-    -   pip install -e infepy
+    -   cd into .../infepy: pip install -e .
    
 Insert data folders (source,target landmarks and source mesh), and modify the config.toml
 ```
