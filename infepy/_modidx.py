@@ -35,4 +35,8 @@ d = { 'settings': { 'branch': 'main',
                               'infepy.utils.read_csv_file': ('2_utils.html#read_csv_file', 'infepy/utils.py'),
                               'infepy.utils.read_k_file': ('2_utils.html#read_k_file', 'infepy/utils.py'),
                               'infepy.utils.read_toml': ('2_utils.html#read_toml', 'infepy/utils.py'),
-                              'infepy.utils.to_ls_dyna': ('2_utils.html#to_ls_dyna', 'infepy/utils.py')}}}
+                              'infepy.utils.to_ls_dyna': ('2_utils.html#to_ls_dyna', 'infepy/utils.py')},
+            'infepy.write_keyfile': { 'infepy.write_keyfile.df_to_ls_dyna_format': ( '5_write_key_file.html#df_to_ls_dyna_format',
+                                                                                     'infepy/write_keyfile.py'),
+                                      'infepy.write_keyfile.write_kfile': ( '5_write_key_file.html#write_kfile',
+                                                                            'infepy/write_keyfile.py')}}}

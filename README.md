@@ -22,16 +22,17 @@ git clone https://github.com/infekit/infepy
 Open bash terminal and type: 
     -   conda create --name infekit-test python=3.9
     -   conda activate infekit-test
-    -   pip install nbdev
     -   cd into .../infepy: pip install -e .
+    -   cd infepy
+    -   Insert data folders (source,target landmarks and source mesh), and modify the config.toml
+    -   python morph.py --function $FUNCTION --smoothing $SMOOTHING 
    
-Insert data folders (source,target landmarks and source mesh), and modify the config.toml
 ```
 
 ## To run:
 
 ``` sh
-from CL into directory ..Github/infepy/infepy :   python morph.py --function NAME --smoothing VALUE [default settings: Function: "thin_plate_spline", smoothing = 0 ]
+from CL into directory ..Github/infepy/infepy :   python morph.py --function $NAME --smoothing $VALUE [default settings: Function: "thin_plate_spline", smoothing = 0 ]
 ```
 
 “[<video src="images/screen_recording.mp4" controls=""><a
