@@ -27,27 +27,62 @@ provides the capability to perform morphing operations and achieve
 desired shape transformations between the source and target geometries
 using the specified landmarks.
 
+------------------------------------------------------------------------
+
+The input files for the morphing process include:
+
+**Inputs:**
+
+- Landmarked FE geometry. This geometry provides the landmarks from the
+  source mesh.
+
+- Finite Element Mesh
+
+- Landmarked Segmented Geometry. This geometry provides the target shape
+  that the FE geometry will be morphed to.
+
+**Output:**
+
+- Morphed geometry. Deformed mesh according to the landmarks provided.
+
+------------------------------------------------------------------------
+
 ![InFEpy workflow](images/Infe.PNG)
 
 ## Installation
 
-``` sh
-git clone https://github.com/infekit/infepy
-Open bash terminal and type: 
-    -   conda create --name infekit-test python=3.9
-    -   conda activate infekit-test
-    -   cd into .../infepy: pip install -e .
-    -   cd infepy
-    -   Insert data folders (source,target landmarks and source mesh), and modify the config.toml
-    -   python morph.py --function $FUNCTION --smoothing $SMOOTHING 
-   
-```
+- Clone the repo
 
-## To run:
+  `git clone https://github.com/infekit/infepy`
 
-``` sh
-from CL into directory ..Github/infepy/infepy :   python morph.py --function $NAME --smoothing $VALUE [default settings: Function: "thin_plate_spline", smoothing = 0 ]
-```
+- Create environment in Anaconda
+
+- Create environment in Anaconda
+
+  Open the terminal and type:
+
+  `conda create --name infekit-test python=3.9`
+
+  `conda activate infekit-test`
+
+  `cd into .../infepy: pip install -e .`
+
+## Morphing
+
+from the command line *cd* into the directory ..Github/infepy/infepy :
+`python morph.py --function $FUNCTION --smoothing $SMOOTHING`
+
+<div>
+
+> **Note**
+>
+> The default setting for morphing are:
+>
+> - morphing function: *thin_plate_spline*
+>
+> - smoothing: 0
+
+</div>
 
 “[<video src="images/screen_recording.mp4" controls=""><a
 href="images/screen_recording.mp4">Video</a></video>](images/screen_recording.mp4)”
