@@ -37,7 +37,9 @@ def read_nodes(
 # %% ../nbs/1_preprocessing.ipynb 9
 def read_landmarks(
     path_to_file: str,  # File containing Landmarks
-) -> pd.DataFrame:  # Dataframe of length [n_landmarks]. Columns format [ID - label, x,y,z]
+) -> (
+    pd.DataFrame
+):  # Dataframe of length [n_landmarks]. Columns format [ID - label, x,y,z]
     "Read the landmarks from .csv/.key/.k file."
     file_exist = False
     if path_to_file.endswith(".csv") or path_to_file.endswith(".fcsv"):

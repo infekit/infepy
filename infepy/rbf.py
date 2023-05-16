@@ -36,7 +36,6 @@ class RBF(Deformation):
         smoothing=None,  # MODIFIED: added parameter. IF defined, a constant values will be added on the diagonal of the matrix Dcc. Suggested value: 0.1
         extra_parameter=None,
     ):
-
         self.basis = func
         self.radius = radius
         self.smoothing = smoothing
