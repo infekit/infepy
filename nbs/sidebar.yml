@@ -8,3 +8,5 @@ website:
       - 3_morphing.ipynb
       - 4_rbf.ipynb
       - 5_write_key_file.ipynb
+      - 6_tutorial.ipynb
+      - 7_demos.ipynb

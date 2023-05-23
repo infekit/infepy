@@ -3,29 +3,29 @@
 # %% auto 0
 __all__ = ['read_toml', 'read_nodes', 'read_landmarks', 'write_output']
 
-# %% ../nbs/1_preprocessing.ipynb 3
+# %% ../nbs/1_preprocessing.ipynb 4
 import os
 import numpy as np
 import pandas as pd
 
-# %% ../nbs/1_preprocessing.ipynb 4
+# %% ../nbs/1_preprocessing.ipynb 5
 from .utils import read_k_file, read_csv_file, to_ls_dyna
 
-# %% ../nbs/1_preprocessing.ipynb 5
+# %% ../nbs/1_preprocessing.ipynb 6
 import toml
 from .utils import _merge_path
 
-# %% ../nbs/1_preprocessing.ipynb 6
-def read_toml(config_file="../test_data/config.toml"):  # Path to the config file
-    "Read setting file. The File containes the relative path to source and target."
+# %% ../nbs/1_preprocessing.ipynb 7
+def read_toml(config_file="../test_data/config.toml"):  # path to the config file
+    "Read configuration file containing the relative paths to source and target geometries and landmarks."
     config = toml.load(config_file)
     return config
 
-# %% ../nbs/1_preprocessing.ipynb 7
+# %% ../nbs/1_preprocessing.ipynb 9
 def read_nodes(
     path_to_file: str,  # Path to file containing source template from the config file.
 ) -> pd.DataFrame:  # Numpy array of shape [n_nodes, x,y,z_displacement]
-    "Read the nodes from the source template. The source template must be either a .key/.k file or .csv"
+    "Reads the nodes from the source template file, which can be either a .key/.k file or a .csv file. Returns a DataFrame containing the node x, y, and z displacements."
 
     if path_to_file.endswith(".csv") or path_to_file.endswith(".fcsv"):
         mesh_df = read_csv_file(path_to_file)
@@ -34,13 +34,13 @@ def read_nodes(
     return mesh_df
     # if mesh_df = None, -> no file read.
 
-# %% ../nbs/1_preprocessing.ipynb 9
+# %% ../nbs/1_preprocessing.ipynb 11
 def read_landmarks(
     path_to_file: str,  # File containing Landmarks
 ) -> (
     pd.DataFrame
 ):  # Dataframe of length [n_landmarks]. Columns format [ID - label, x,y,z]
-    "Read the landmarks from .csv/.key/.k file."
+    "Reads landmarks from a file, which can be in .csv, .key, or .k format. Returns a DataFrame containing the landmarks with the following columns, ID label and x, y, z coordinates."
     file_exist = False
     if path_to_file.endswith(".csv") or path_to_file.endswith(".fcsv"):
         landmarks_df = read_csv_file(path_to_file)
@@ -51,7 +51,7 @@ def read_landmarks(
     assert not landmarks_df.empty
     return landmarks_df
 
-# %% ../nbs/1_preprocessing.ipynb 11
+# %% ../nbs/1_preprocessing.ipynb 12
 def _check_landmarks(
     source: pd.DataFrame, target: pd.DataFrame  # Source dataframe  # Target dataframe
 ):

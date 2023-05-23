@@ -194,7 +194,6 @@ class RBFFactory:
     }
 
     def __new__(self, fname):
-
         # to make the str callable we have to use a dictionary with all the
         # implemented radial basis functions
         if fname in self.bases:

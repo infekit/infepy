@@ -20,12 +20,10 @@ try:
 except ImportError:
     import ConfigParser as configparser
 
-# %% ../nbs/4_rbf.ipynb 7
+# %% ../nbs/4_rbf.ipynb 9
 class RBF(Deformation):
     """
-    Class that handles the Radial Basis Functions interpolation on the mesh
-    points.
-    """
+    Class that handles the Radial Basis Functions interpolation on the mesh points"""
 
     def __init__(
         self,
@@ -33,7 +31,7 @@ class RBF(Deformation):
         deformed_control_points=None,  # (*n_control_points*, *3*) array with the coordinates of the interpolation control points after the deformation. *Default is the vertices of the unit cube.*
         func="thin_plate_spline",  # MODIFIED: DEFAULT is **thin plate spline**. Several basis function are already implemented and they are available through the `~pygem.rbf.RBF` by passing the name of the right function.
         radius=1,  # Scaling parameter that affects the shape of the basis functions.
-        smoothing=None,  # MODIFIED: added parameter. IF defined, a constant values will be added on the diagonal of the matrix Dcc. Suggested value: 0.1
+        smoothing=None,  # MODIFIED: added parameter. IF defined, a constant values will be added on the diagonal of the matrix Dcc. s
         extra_parameter=None,
     ):
         self.basis = func

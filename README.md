@@ -84,5 +84,11 @@ from the command line *cd* into the directory ..Github/infepy/infepy :
 
 </div>
 
-“[<video src="images/screen_recording.mp4" controls=""><a
-href="images/screen_recording.mp4">Video</a></video>](images/screen_recording.mp4)”
+<div>
+
+[<video src="images/screen_recording.mp4" controls=""><a
+href="images/screen_recording.mp4">Video</a></video>](images/screen_recording.mp4)
+
+Video_example
+
+</div>

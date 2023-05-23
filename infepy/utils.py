@@ -22,7 +22,7 @@ def _merge_path(path1: str, path2: str) -> str:
 
 # %% ../nbs/2_utils.ipynb 8
 def multiple_targets():
-    "This function checks if the there are multiple target subject."
+    "This function determines if the there are multiple target subject by examining the directories within the target path.If there are multiple target directories, it returns a list of the target subjects' names"
     config = read_toml()
     path = config["target"]["path"]
     filename = config["target"]["filename_landmarks"]
@@ -39,7 +39,7 @@ def multiple_targets():
 def read_k_file(
     path_to_file: str,  # File to read
 ) -> pd.DataFrame:  # Dataframe of shape [n_nodes, [ID,x,y,z]]
-    "This function read *NODES section from .k/.key file."
+    "Reads the *NODES from a .k/.key file, extracting node IDs and x, y, and z coordinates. It returns a DataFrame with columns labeled as 'Label - node id', 'x', 'y', and 'z'"
     id_list = []
     node_coords = []
     find_nodes = False
@@ -71,7 +71,7 @@ def read_k_file(
 def read_csv_file(
     path_to_file: str,  # File to read.
 ) -> pd.DataFrame:  # Dataframe of columns are id, x, y,z
-    "This function read .csv files in format [id, x, y,z] to Pandas DataFrame"
+    "This function read .csv files in format [id, x, y,z] and coverts it to DataFrame"
     with open(path_to_file) as fp:
         df = pd.read_csv(fp, header=None, comment="#")
         df = df.iloc[:, :4]
@@ -79,7 +79,7 @@ def read_csv_file(
     return df
 
 # %% ../nbs/2_utils.ipynb 14
-def from_df_to_np(df: pd.DataFrame) -> np.ndarray:
+def from_df_to_np(df: pd.DataFrame) -> np.ndarray:  # Dataframe  # numpy array
     "This function transform a pd.Dataframe of shape [ID, x,y,z] to numpy array of coordinates [x,y,z]"
     if len(df.columns) == 4:
         return df.iloc[:, 1:4].values
@@ -95,6 +95,3 @@ def from_df_to_np(df: pd.DataFrame) -> np.ndarray:
 def to_ls_dyna(number):
     "This function write coordinates according to LS-DYNA formatting. Coordinates of nodes requires 16 digit."
     return "{:16f}".format(number)
-
-# %% ../nbs/2_utils.ipynb 17
-to_ls_dyna(6.8)

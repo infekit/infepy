@@ -11,7 +11,9 @@ import pandas as pd
 from argparse import ArgumentParser
 
 # %% ../nbs/5_write_key_file.ipynb 4
-def df_to_ls_dyna_format(dataframe: pd.DataFrame):  # Dataframe containing node position
+def df_to_ls_dyna_format(
+    dataframe: pd.DataFrame,  # Dataframe containing node position [Label,x,y,z]
+):
     # Trasfrom from a df to LS-DYNA node format *NODE x y z (8,16,16,16)
     list = []
     for i in range(dataframe.shape[0]):
@@ -26,7 +28,7 @@ def df_to_ls_dyna_format(dataframe: pd.DataFrame):  # Dataframe containing node 
         list.append(tmp)
     return list
 
-# %% ../nbs/5_write_key_file.ipynb 5
+# %% ../nbs/5_write_key_file.ipynb 6
 parser = ArgumentParser(description="Write .k file in LS-DYNA from a .csv file. ")
 parser.add_argument("--file", type=str, help="Type the path to a csv file")
 
@@ -43,13 +45,13 @@ def write_kfile(path_to_file):
         for j in range(len(list)):
             f.writelines("{}".format(list[j]))
 
-# %% ../nbs/5_write_key_file.ipynb 6
+# %% ../nbs/5_write_key_file.ipynb 7
 # |eval: false
 write_kfile("../test_data/source/landmarks_source.fcsv")
 
-# %% ../nbs/5_write_key_file.ipynb 7
+# %% ../nbs/5_write_key_file.ipynb 8
 # |eval: false
 if __name__ == "__main__":
     args = parser.parse_args()
-    print("Csv file to transform: ", args.file)
+    print("csv file to transform: ", args.file)
     write_kfile(args.file)
