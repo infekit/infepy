@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 
 # %% ../nbs/1_preprocessing.ipynb 5
-from .utils import read_k_file, read_csv_file, to_ls_dyna
+from .utils import read_k_file, read_csv_file, read_xml_file, to_ls_dyna
 
 # %% ../nbs/1_preprocessing.ipynb 6
 import toml
@@ -47,6 +47,8 @@ def read_landmarks(
         file_exist = True
     elif path_to_file.endswith(".key") or path_to_file.endswith(".k"):
         landmarks_df = read_k_file(path_to_file)
+    elif path_to_file.endswith(".xml"):
+        landmarks_df = read_xml_file(path_to_file)
 
     assert not landmarks_df.empty
     return landmarks_df

@@ -6,6 +6,7 @@ __all__ = ['parser', 'morphing', 'do_morphing']
 # %% ../nbs/3_morphing.ipynb 3
 import os
 import numpy as np
+import pandas as pd
 import click
 from argparse import ArgumentParser
 
@@ -16,8 +17,8 @@ import infepy.utils as utils
 
 # %% ../nbs/3_morphing.ipynb 5
 def morphing(
-    source_landmarks: np.ndarray,  # Landmarks of the source mesh
-    target_landmarks: np.ndarray,  # Target Landmarks
+    source_landmarks: pd.DataFrame,  # Landmarks of the source mesh
+    target_landmarks: pd.DataFrame,  # Target Landmarks
     source_mesh: np.ndarray,  # Coordinates of the mesh/ mesh
     func,
     smoothing,
@@ -26,8 +27,8 @@ def morphing(
     basis_function = func
 
     rad_bas_fun = rbf.RBF(
-        original_control_points=utils.from_df_to_np(source_landmarks),
-        deformed_control_points=utils.from_df_to_np(target_landmarks),
+        original_control_points=utils.from_df_to_np(source_landmarks).astype(float),
+        deformed_control_points=utils.from_df_to_np(target_landmarks).astype(float),
         func=basis_function,
         smoothing=smoothing,
     )
