@@ -48,6 +48,8 @@ def read_k_file(
 
     with open(path_to_file, "r") as fp:
         for _, line in enumerate(fp):
+            if line.startswith("$"):  # skip comments
+                continue
             if line.startswith("*NODE"):
                 find_nodes = True
                 continue
