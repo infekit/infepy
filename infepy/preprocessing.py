@@ -62,17 +62,24 @@ def _check_landmarks(
         target
     ), "Not same amount of landmarks for source and target"
 
-    bool = target.iloc[:, 0].values == source.iloc[:, 0].values
-    assert (
-        bool.any() == True
-    ), "Order of landmarks is not the same for target and source"
+    bool_flag = (
+        target.iloc[:, 0].astype(str).values == source.iloc[:, 0].astype(str).values
+    )  # check if the labels are the same between source and target.
 
-    if bool.any() == False:
-        return [i for i, x in enumerate(bool) if x == False]  # => [1, 3]
-
-    # TO DO: return values that are false. Bool gived false and extract index. Print.
-    # Sort them
-    # if they dont match, return exception -->
+    if (
+        bool_flag.all() == False
+    ):  # returns which labels are not consistent between source and target.
+        print("WARNING: Order of landmarks is not the same for target and source:")
+        indices = [
+            i for i, x in enumerate(bool_flag) if x == False
+        ]  # find where the condition return false
+        print(
+            "Source label:",
+            target.iloc[indices, 0].values,
+            "\nTarget label:",
+            source.iloc[indices, 0].values,
+        )
+        raise Exception("Landmarks are not consistent")
     return
 
 # %% ../nbs/1_preprocessing.ipynb 14
