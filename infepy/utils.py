@@ -80,7 +80,7 @@ def read_csv_file(
         df.columns = ["Label - node id", "x", "y", "z"]
     return df
 
-# %% ../nbs/2_utils.ipynb 13
+# %% ../nbs/2_utils.ipynb 14
 def read_xml_file(
     path_to_file: str,  # File to read [label, x y z]
 ) -> pd.DataFrame:  # Dataframe of columns are id, x, y,z
