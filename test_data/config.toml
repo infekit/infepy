@@ -8,23 +8,5 @@ filename_landmarks = "landmarks_source.fcsv"
 path = "../test_data/target"
 filename_landmarks = "landmarks_target.fcsv"
 
-#HOW TO SET THE CONFIG FILE  FOR TARGETs:
-
-# If there are multiple target pass the only the parent directory and the file name. The code will look for the folden name automatically. 
-# It will look like this:
-# One target: 
-#           data/target/landmarks_target.fcsv"
-#           path = "data/target"
-#           filename_landmarks = "landmarks_target.fcsv"
-
-# multiple targets: 
-#           data/target/target1/landmarks.fcsv
-#           data/target/target2/landmarks.fcsv
-#           data/target/target3/landmarks.fcsv
-#           data/target/target4/landmarks.fcsv
-
-#           path = "data/target"
-#           filename_landmarks = "landmarks_target.fcsv"
-
 
 
