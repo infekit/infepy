@@ -16,5 +16,29 @@ website:
     search: true
   sidebar:
     style: floating
+    contents:
+      - index.ipynb
+      - section: Introduction
+        contents:
+         - 1_intro_get_started.ipynb
+         - 2_howto_infepy.ipynb
+      - section: API
+        contents:
+          - 3_preprocessing.ipynb
+          - 4_utils.ipynb
+          - 5_morphing.ipynb
+          - 6_rbf.ipynb
+      - section: Tutorial
+        contents:
+          - 7_folder_structure.ipynb
+          - 8_CLI.ipynb
+          - 9_demo_jupyter.ipynb
+          - 10_write_key_file.ipynb
+      - section: Landmarking
+        contents:
+         - 0_segmentation.ipynb
+
+
+
 
 metadata-files: [nbdev.yml, sidebar.yml]

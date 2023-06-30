@@ -9,53 +9,29 @@ For documentation: [Documentation](https://infekit.github.io/infepy/)
 
 > **Warning**
 >
-> This library is currently in the testing phase.
+> This library is currently being developed and tested.
 
 </div>
 
 ## Description
 
-Infepy is a tool that applies morphing to mesh geometries. It allows to
-morph a source mesh to a target geometry by utilizing Radial Basis
-Function. The source mesh should be a LS-DYNA .key file format, while
-the landmarks file can be either in .csv or .key.
+Infepy is a tool that applies morphing to mesh geometries. It performs
+morphing operations and achieves desired shape transformations between
+the source and target geometries using the specified landmarks. It
+allows to morph a source mesh to a target geometry by utilizing Radial
+Basis Function.
 
-The target geometry can be a single item or multiple items, and you can
-find more detailed information about this process
-[here](https://infekit.github.io/infepy/3_morphing.html) . Infepy
-provides the capability to perform morphing operations and achieve
-desired shape transformations between the source and target geometries
-using the specified landmarks.
-
-------------------------------------------------------------------------
-
-The input files for the morphing process include:
-
-**Inputs:**
-
-- Landmarked FE geometry. This geometry provides the landmarks from the
-  source mesh.
-
-- Finite Element Mesh
-
-- Landmarked Segmented Geometry. This geometry provides the target shape
-  that the FE geometry will be morphed to.
-
-**Output:**
-
-- Morphed geometry. Deformed mesh according to the landmarks provided.
-
-------------------------------------------------------------------------
-
-![InFEpy workflow](images/Infe.PNG)
+The source mesh should be a LS-DYNA .key file format, while the
+landmarks file can be either in .csv or .key. The target geometry can be
+a single item or multiple items, and you can find more detailed
+information about this process
+[here](https://infekit.github.io/infepy/morphing.html).
 
 ## Installation
 
 - Clone the repo
 
   `git clone https://github.com/infekit/infepy`
-
-- Create environment in Anaconda
 
 - Create environment in Anaconda
 
@@ -66,29 +42,3 @@ The input files for the morphing process include:
   `conda activate infekit-test`
 
   `cd into .../infepy: pip install -e .`
-
-## Morphing
-
-from the command line *cd* into the directory ..Github/infepy/infepy :
-`python morph.py --function $FUNCTION --smoothing $SMOOTHING`
-
-<div>
-
-> **Note**
->
-> The default setting for morphing are:
->
-> - morphing function: *thin_plate_spline*
->
-> - smoothing: 0
-
-</div>
-
-<div>
-
-[<video src="images/screen_recording.mp4" controls=""><a
-href="images/screen_recording.mp4">Video</a></video>](images/screen_recording.mp4)
-
-Video_example
-
-</div>
