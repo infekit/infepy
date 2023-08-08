@@ -103,6 +103,8 @@ def write_output(
             continue
         if node_indicator and line.startswith("*"):
             break
+        if node_indicator and line.startswith("#"):
+            pass
         if node_indicator:
             line_list = list(line)
             line_list[8:24] = to_ls_dyna(morphed_mesh[idx_nodes, 0])  # x

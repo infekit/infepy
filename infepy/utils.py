@@ -55,6 +55,8 @@ def read_k_file(
                 continue
             if find_nodes and line.startswith("*"):
                 break
+            if find_nodes and line.startswith("#"):
+                pass
             if find_nodes:
                 node_id = int(line[:8])
                 node_x = float(line[8:24])
