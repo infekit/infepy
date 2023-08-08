@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Segmentation and Landmarking Tutorial with 3DSlicer.">
+
+<title>infepy - A 3D Slicer Tutorial</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="infepy - A 3D Slicer Tutorial">
+<meta property="og:description" content="Segmentation and Landmarking Tutorial with 3DSlicer.">
+<meta property="og:site-name" content="infepy">
+<meta name="twitter:title" content="infepy - A 3D Slicer Tutorial">
+<meta name="twitter:description" content="Segmentation and Landmarking Tutorial with 3DSlicer.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">infepy</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools ms-auto">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./segmentation.html">Landmarking</a></li><li class="breadcrumb-item"><a href="./segmentation.html">A 3D Slicer Tutorial</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">INFEPY</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Introduction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_get_started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get started with INFEPY</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./howto_infepy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How it works</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">API</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preprocessing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./utils.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Utils</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./morphing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Morphing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./rbf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Radial Basis Function</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Tutorial</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./folder_structure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Folder structure</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CLI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./demo_jupyter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Jupyter Notebook</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./write_key_file.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Write .key file</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Landmarking</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./segmentation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">A 3D Slicer Tutorial</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#segmentation" id="toc-segmentation" class="nav-link active" data-scroll-target="#segmentation">Segmentation</a></li>
+  <li><a href="#landmarking" id="toc-landmarking" class="nav-link" data-scroll-target="#landmarking">Landmarking</a>
+  <ul class="collapse">
+  <li><a href="#gpa---pca" id="toc-gpa---pca" class="nav-link" data-scroll-target="#gpa---pca">GPA - PCA</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/infekit/infepy/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">A 3D Slicer Tutorial</h1>
+</div>
+
+<div>
+  <div class="description">
+    Segmentation and Landmarking Tutorial with 3DSlicer.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<section id="segmentation" class="level1">
+<h1>Segmentation</h1>
+<hr>
+<ul>
+<li><h3 id="load-the-volume" class="anchored" data-anchor-id="segmentation">Load the volume</h3>
+<ul>
+<li>Click on the “DCM” button located on the upper left of the window. In the “Reload &amp; Test” section, select “Import DICOM files”. Choose the files from the directory.</li>
+<li>On the import DICOM page, choose the volume to import from the “Series” option. Click on “Examine”, then “Load”.</li>
+</ul></li>
+<li><h3 id="crop-the-volume" class="anchored">Crop the Volume</h3>
+<ul>
+<li>Press the “lens” button located in the upper part of the window. Search for the Module “Crop Volume” and click on “Switch to Module”.</li>
+<li>In the right menu, under the “IO” section, select the Input Volume. Choose the volume that was just loaded.</li>
+<li>In the Input ROI section, select “Create a new ROI”.</li>
+<li>In the Advanced section, enable “Interpolated cropping” and “Isotropic Spacing”.</li>
+<li>Adjust the box in the different views to select only the volume of interest. Click on “Apply”.</li>
+<li>The ROI markers are no longer needed. In the Data module, click on the eye button to make the ROI invisible. This will make it easier to work with the next steps.</li>
+</ul></li>
+<li><h3 id="volume-module" class="anchored">Volume Module</h3>
+<ul>
+<li>In the Display settings, select the CT-bone setup (the first option on the left). The threshold level should be around [W:1000, L:400]. The goal of this step is to increase the contrast between the bones or area of interest and the surrounding tissues.</li>
+</ul></li>
+<li><h3 id="segment-editor-module" class="anchored">Segment editor module</h3>
+<ul>
+<li><p>In the Segmentation Module, click on the “Add” button located on the right. Let’s add two segments: one for the bone to segment (e.g., “Humerus”) and the other for everything else (e.g., “Other”). Double click on each segment to rename them.</p></li>
+<li><p>In the options, select “Threshold” and choose a level between [160, 2976]. Click on “Use for Masking”. The optimal level is when the highlighted area represents the bone but not the surrounding tissues. Be careful not to filter out some areas of interest. It’s better to include some surrounding tissue rather than erase areas of interest.</p></li>
+<li><p>Let’s use semi-automatic segmentation. Go to “Grow from Seeds” and click on “Initialize”.</p></li>
+<li><p>Use the brush tool to paint on the single slice views, covering several slices. Spending more time on this part will improve the segmentation. Make sure to use different colors for both segments to help the module differentiate between them.</p></li>
+<li><p>After painting, go back to “Grow from Seeds” and click on “Apply”. Click on “Show 3D” to render the 3D view.</p></li>
+<li><p>Toggle the visibility of the “Other” segment to assess the segmentation.</p>
+<ul>
+<li>If you’re unsatisfied or if the segmentation has holes, go back to the Threshold and adjust the threshold level. Click on “Use for Masking” again. Go to “Grow from Seeds”, click on “Initialize”, and use the paint option to color the missing parts. Spend more time painting the segments. It’s important to zoom in on the slices and paint the edges of the segment to indicate to what they belong. Click on “Apply” to have an updated version of the segmentation.</li>
+</ul></li>
+<li><p>Once you’re done with the segmentation, if there are any spikes or small islands, use the “Scissor” tool to cut them out. Make sure you have the correct segment selected when cutting out the island.</p></li>
+<li><p>To smooth out the surface, go to the “Smoothing” option and apply a “Median” filter (use a small kernel of 2/3 mm).</p></li>
+<li><p>Additionally, use the “Closing - Fill holes” filter, this time selecting a higher kernel (5/6 mm). To address single spots, go to the “Smoothing brush option” setting, click on “Edit in 3D view” to paint in the 3D view and close the local holes.</p></li>
+<li><p>If satisfied with the segmentation, go on the Data Module, Under the Segmentation hierarchy, right-click on the Bone segment and Export to file. Select the STL version.</p></li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="landmarking" class="level1">
+<h1>Landmarking</h1>
+<hr>
+<ul>
+<li><p>Once you have obtained a volume, navigate to the “Markup” Module.</p></li>
+<li><p>To create landmarks, click on “Point list” and rename the list accordingly.</p></li>
+<li><p>To adjust the size of the control points, go to Display and modify the “Glyph size” to your preference.</p></li>
+<li><p>If you want to place multiple points in sequence, locate the “Place a Control Point” option (symbolized by a blue arrow and red dot) in the upper part of the window. Click on the arrow and select “Place Multiple Control Points”.</p></li>
+<li><p>To view an overview of the points in the left panel, access the “Control point” setting. From there, you can rename the points or add descriptions.</p></li>
+<li><p>If you wish to place a curve, click on “Curve” and position a few control points. Then, navigate to “Curve Settings” and select the segmented volume under “Constrain Model” (this ensures that the sampled points will be taken on the surface).</p></li>
+<li><p>If you want to resample the curve, go to “Resample” and choose the desired number of resampled points under “Number of resampled points”. The resample setting will distribute equidistant points. Make sure to review each individual curve point to ensure they are in the intended positions. Note that the resample option may alter the landmarks’ positions. (Ensure that the output node setting is set to “Overwrite current node”). If the resampled nodes are not aligned with the surface, access “Curve Settings”, go to “Advanced”, and increase the “Maximum projection distance”. Then, click on “Resample” again.</p></li>
+<li><p>Once you have registered the landmarks, proceed to “Save”. First, save the entire scene in mrb format. To save individual files, follow these steps:</p>
+<ul>
+<li>Deselect all the items.</li>
+<li>Select only the items of interest (the segmented volume and landmarks).</li>
+<li>Choose the destination folder.</li>
+<li>Select the desired file format (fcsv for landmarks).</li>
+</ul></li>
+</ul>
+<p>The landmarking process is now complete.</p>
+<p>If you have both landmarks and curves, the files will be saved separately. However, there is an option to merge them. Download the “Slicer Morph” extension and restart Slicer. Open Slicer and load the fcsv file you want to merge (click on “Data”, search for files, and load it). Use the lens search button to find the “MergeMarkups” extension. Access “Merge Landmarks set”, select the uploaded files, and click on “Merge Highlighted nodes”. A new set of merged landmarks will appear. Save it and use it for the morphing phase.</p>
+<section id="gpa---pca" class="level2">
+<h2 class="anchored" data-anchor-id="gpa---pca">GPA - PCA</h2>
+<p>For General Procrustes Analysis (GPA) / Principal Components Analysis (PCA):</p>
+<ul>
+<li><p><a href="https://github.com/SlicerMorph/Tutorials/tree/main/GPA_1">Tutorial GPA1</a></p></li>
+<li><p><a href="https://github.com/SlicerMorph/Tutorials/blob/main/GPA_2/README.md">Tutorial GPA2</a></p></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

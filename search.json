@@ -1,0 +1,198 @@
+[
+  {
+    "objectID": "morphing.html",
+    "href": "morphing.html",
+    "title": "Morphing",
+    "section": "",
+    "text": "Note\n\n\n\nThe default setting for morphing are:\n\nmorphing function: thin_plate_spline\nsmoothing: 0\nsource"
+  },
+  {
+    "objectID": "morphing.html#command-line",
+    "href": "morphing.html#command-line",
+    "title": "Morphing",
+    "section": "Command Line",
+    "text": "Command Line\n\nsource\n\ndo_morphing\n\n do_morphing (func, smoothing)"
+  },
+  {
+    "objectID": "utils.html",
+    "href": "utils.html",
+    "title": "Utils",
+    "section": "",
+    "text": "source\n\nmultiple_targets\n\n multiple_targets ()\n\nThis function determines if the there are multiple target subject by examining the directories within the target path.If there are multiple target directories, it returns a list of the target subjects’ names\n\nsource\n\n\nread_k_file\n\n read_k_file (path_to_file:str)\n\nReads the *NODES from a .k/.key file, extracting node IDs and x, y, and z coordinates. It returns a DataFrame with columns labeled as ‘Label - node id’, ‘x’, ‘y’, and ‘z’\n\n\n\n\n\n\n\n\n\nType\nDetails\n\n\n\n\npath_to_file\nstr\nFile to read\n\n\nReturns\nDataFrame\nDataframe of shape [n_nodes, [ID,x,y,z]]\n\n\n\n\nread_k_file(\"mesh.key\")\n\n\nsource\n\n\nread_csv_file\n\n read_csv_file (path_to_file:str)\n\nThis function read .csv files in format [id, x, y,z] and coverts it to DataFrame\n\n\n\n\n\n\n\n\n\nType\nDetails\n\n\n\n\npath_to_file\nstr\nFile to read.\n\n\nReturns\nDataFrame\nDataframe of columns are id, x, y,z\n\n\n\n\ndf = read_csv_file(\"landmarks.csv\")\n\n\nsource\n\n\nread_xml_file\n\n read_xml_file (path_to_file:str)\n\nThis function read .xml files in format [id, x, y,z] and coverts it to DataFrame. It divides the second column into separate x y z. This function was developed for a specific case.\n\n\n\n\n\n\n\n\n\nType\nDetails\n\n\n\n\npath_to_file\nstr\nFile to read [label, x y z]\n\n\nReturns\nDataFrame\nDataframe of columns are id, x, y,z\n\n\n\n\nsource\n\n\nfrom_df_to_np\n\n from_df_to_np (df:pandas.core.frame.DataFrame)\n\nThis function transform a pd.Dataframe of shape [ID, x,y,z] to numpy array of coordinates [x,y,z]\n\n\n\n\nType\nDetails\n\n\n\n\ndf\nDataFrame\nDataframe\n\n\nReturns\nndarray\nnumpy array\n\n\n\n\nsource\n\n\nto_ls_dyna\n\n to_ls_dyna (number)\n\nThis function write coordinates according to LS-DYNA formatting. Coordinates of nodes requires 16 digit.\n\nto_ls_dyna(6.8)\n\n'        6.800000'"
+  },
+  {
+    "objectID": "cli.html",
+    "href": "cli.html",
+    "title": "CLI",
+    "section": "",
+    "text": "Navigate into infepy scripts. In the terminal type:\nThe module can be called with different options."
+  },
+  {
+    "objectID": "cli.html#morphing",
+    "href": "cli.html#morphing",
+    "title": "CLI",
+    "section": "Morphing",
+    "text": "Morphing\nfrom the command line cd into the directory ..Github/infepy/infepy : python morph.py --function $FUNCTION --smoothing $SMOOTHING\n\n\nVideo\nExample"
+  },
+  {
+    "objectID": "howto_infepy.html",
+    "href": "howto_infepy.html",
+    "title": "How it works",
+    "section": "",
+    "text": "Note\n\n\n\nThe config file is need only when using CLI.\nWith Jupyter it is possible to specify the path when calling the function.\n\n\nThe TOML file stores the path for the file needed in the process. What you need to specify in the config file:\n\nPath to the source files\n\nSource Mesh filename\nlandmark source filename\n\nPath to the target files\n\nlandmark target filename\n\n\nAn example:\n    [source]\n    path = \"../test_data/source\"\n    filename_mesh = \"humerus_sx.key\"\n    filename_landmarks = \"landmarks_source.fcsv\"\n    [target]\n    path = \"../test_data/target\"\n    filename_landmarks = \"landmarks_target.fcsv\""
+  },
+  {
+    "objectID": "howto_infepy.html#toml-config-file",
+    "href": "howto_infepy.html#toml-config-file",
+    "title": "How it works",
+    "section": "",
+    "text": "Note\n\n\n\nThe config file is need only when using CLI.\nWith Jupyter it is possible to specify the path when calling the function.\n\n\nThe TOML file stores the path for the file needed in the process. What you need to specify in the config file:\n\nPath to the source files\n\nSource Mesh filename\nlandmark source filename\n\nPath to the target files\n\nlandmark target filename\n\n\nAn example:\n    [source]\n    path = \"../test_data/source\"\n    filename_mesh = \"humerus_sx.key\"\n    filename_landmarks = \"landmarks_source.fcsv\"\n    [target]\n    path = \"../test_data/target\"\n    filename_landmarks = \"landmarks_target.fcsv\""
+  },
+  {
+    "objectID": "howto_infepy.html#landmarks",
+    "href": "howto_infepy.html#landmarks",
+    "title": "How it works",
+    "section": "Landmarks",
+    "text": "Landmarks\nA landmark label can be either a number (int or float) or a string.\n\n\n\n\n\n\nNote\n\n\n\nBetween source and target landmarks, there must be consistency. So the following applies:\n\nSame number of landmarks\nSame order\nSame labels\n\n\n\n\n\n\n\nWarning\n\n\n\nIf one or more of these points is not respected, Infepy raises a Warning.\n\n\n\n\n\nAn example:\nsource landmarks\n\n\n\n\n\n\n\n\n\nLabel - node id\nx\ny\nz\n\n\n\n\n0\n1\n-183.063339\n134.525345\n388.490692\n\n\n1\n2\n-161.198669\n143.211426\n373.034149\n\n\n2\n3\n-146.246490\n150.397263\n350.175262\n\n\n\n\n\n\n\ntarget landmarks\n\n\n\n\n\n\n\n\n\nLabel - node id\nx\ny\nz\n\n\n\n\n0\n1\n119.175774\n148.936493\n-365.196716\n\n\n1\n2\n118.836217\n126.852319\n-388.762611\n\n\n2\n3\n122.934593\n119.134407\n-419.716431"
+  },
+  {
+    "objectID": "howto_infepy.html#morphing",
+    "href": "howto_infepy.html#morphing",
+    "title": "How it works",
+    "section": "Morphing",
+    "text": "Morphing\nThe morphing function is taken and adapted from:\n\nPyGeM - Python Geometrical Morphing Library\nPygem RBF - Radial Basis Function\n\nInfepy implements a slightly different version of the RBF function.\nIt introduces:\n\nThe possibility to add a smoothing factor in the morphing process. The smoothing factor modifies to the Diagonal of the Dcc matrix by adding a constant value o its diagonal. RBF implementation\n\nand\n\nthe euclidean basis function, i.d. a basis function = 1. Infepy euclidean function."
+  },
+  {
+    "objectID": "rbf.html",
+    "href": "rbf.html",
+    "title": "Radial Basis Function",
+    "section": "",
+    "text": "For more information see:\n\nPygem Radial Basis Function implementation RBF Pygem\n\n\nRadial Basis Function Source code RBF code\n\n\nPaper source of implementation RBF implemenation\n\n\nAvailable function from rbf_factory: \nthin_plate_spline\neuclidean\ngaussian_spline\nmulti_quadratic_biharmonic_spline\ninv_multi_quadratic_biharmonic_spline\nbeckert_wendland_c2_basis\npolyharmonic_spline\n\n\nfrom pygem import RBF\nrbf = RBF('thin_plate_spline')\ndeformed_mesh = rbf(mesh)\n\n\nsource\n\nRBF\n\n RBF (original_control_points=None, deformed_control_points=None,\n      func='thin_plate_spline', radius=1, smoothing=None,\n      extra_parameter=None)\n\nClass that handles the Radial Basis Functions interpolation on the mesh points\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\noriginal_control_points\nNoneType\nNone\n(n_control_points, 3) array with the coordinates of the original interpolation control points before the deformation. Default is the vertices of the unit cube.\n\n\ndeformed_control_points\nNoneType\nNone\n(n_control_points, 3) array with the coordinates of the interpolation control points after the deformation. Default is the vertices of the unit cube.\n\n\nfunc\nstr\nthin_plate_spline\nMODIFIED: DEFAULT is thin plate spline. Several basis function are already implemented and they are available through the ~pygem.rbf.RBF by passing the name of the right function.\n\n\nradius\nint\n1\nScaling parameter that affects the shape of the basis functions.\n\n\nsmoothing\nNoneType\nNone\nMODIFIED: added parameter. IF defined, a constant values will be added on the diagonal of the matrix Dcc. s\n\n\nextra_parameter\nNoneType\nNone\n\n\n\n\nThe MIT License (MIT)\nCopyright (c) 2016-2020 PyGeM contributors Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+  },
+  {
+    "objectID": "preprocessing.html",
+    "href": "preprocessing.html",
+    "title": "Preprocessing",
+    "section": "",
+    "text": "read_toml: read data from a TOML file\nread_landmarks: read landmarks file\nread_nodes: read mesh nodes\nwrite_output: write morphed mesh\n\n\nsource\n\nread_toml\n\n read_toml (config_file='../test_data/config.toml')\n\nRead configuration file containing the relative paths to source and target geometries and landmarks.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nconfig_file\nstr\n../test_data/config.toml\npath to the config file\n\n\n\n\nread_toml(\"../test_data/config.toml\")\n\n{'source': {'path': '../test_data/source',\n  'filename_mesh': 'humerus_sx.key',\n  'filename_landmarks': 'landmarks_source.fcsv'},\n 'target': {'path': '../test_data/target',\n  'filename_landmarks': 'landmarks_target.fcsv'}}\n\n\n\nsource\n\n\nread_nodes\n\n read_nodes (path_to_file:str)\n\nReads the nodes from the source template file, which can be either a .key/.k file or a .csv file. Returns a DataFrame containing the node x, y, and z displacements.\n\n\n\n\n\n\n\n\n\nType\nDetails\n\n\n\n\npath_to_file\nstr\nPath to file containing source template from the config file.\n\n\nReturns\nDataFrame\nNumpy array of shape [n_nodes, x,y,z_displacement]\n\n\n\n\nread_nodes(mesh)\n\n\nsource\n\n\nread_landmarks\n\n read_landmarks (path_to_file:str)\n\nReads landmarks from a file, which can be in .csv, .key, or .k format. Returns a DataFrame containing the landmarks with the following columns, ID label and x, y, z coordinates.\n\n\n\n\n\n\n\n\n\nType\nDetails\n\n\n\n\npath_to_file\nstr\nFile containing Landmarks\n\n\nReturns\nDataFrame\nDataframe of length [n_landmarks]. Columns format [ID - label, x,y,z]\n\n\n\n\nread_landmarks(source_landmarks)\n\n\nsource\n\n\nwrite_output\n\n write_output (morphed_mesh:numpy.ndarray, morphed_file:numpy.ndarray,\n               mesh_file:numpy.ndarray)\n\nWrite output file for the morphed mesh in .key file format.\n\n\n\n\nType\nDetails\n\n\n\n\nmorphed_mesh\nndarray\nMorphed mesh\n\n\nmorphed_file\nndarray\nPath to directory to save the file\n\n\nmesh_file\nndarray\nPath to the source mesh from config file\n\n\n\n\nwrite_output(morphed_mesh,morphed_file,mesh_file )"
+  },
+  {
+    "objectID": "segmentation.html",
+    "href": "segmentation.html",
+    "title": "A 3D Slicer Tutorial",
+    "section": "",
+    "text": "Click on the “DCM” button located on the upper left of the window. In the “Reload & Test” section, select “Import DICOM files”. Choose the files from the directory.\nOn the import DICOM page, choose the volume to import from the “Series” option. Click on “Examine”, then “Load”.\n\n\n\nPress the “lens” button located in the upper part of the window. Search for the Module “Crop Volume” and click on “Switch to Module”.\nIn the right menu, under the “IO” section, select the Input Volume. Choose the volume that was just loaded.\nIn the Input ROI section, select “Create a new ROI”.\nIn the Advanced section, enable “Interpolated cropping” and “Isotropic Spacing”.\nAdjust the box in the different views to select only the volume of interest. Click on “Apply”.\nThe ROI markers are no longer needed. In the Data module, click on the eye button to make the ROI invisible. This will make it easier to work with the next steps.\n\n\n\nIn the Display settings, select the CT-bone setup (the first option on the left). The threshold level should be around [W:1000, L:400]. The goal of this step is to increase the contrast between the bones or area of interest and the surrounding tissues.\n\n\n\nIn the Segmentation Module, click on the “Add” button located on the right. Let’s add two segments: one for the bone to segment (e.g., “Humerus”) and the other for everything else (e.g., “Other”). Double click on each segment to rename them.\nIn the options, select “Threshold” and choose a level between [160, 2976]. Click on “Use for Masking”. The optimal level is when the highlighted area represents the bone but not the surrounding tissues. Be careful not to filter out some areas of interest. It’s better to include some surrounding tissue rather than erase areas of interest.\nLet’s use semi-automatic segmentation. Go to “Grow from Seeds” and click on “Initialize”.\nUse the brush tool to paint on the single slice views, covering several slices. Spending more time on this part will improve the segmentation. Make sure to use different colors for both segments to help the module differentiate between them.\nAfter painting, go back to “Grow from Seeds” and click on “Apply”. Click on “Show 3D” to render the 3D view.\nToggle the visibility of the “Other” segment to assess the segmentation.\n\nIf you’re unsatisfied or if the segmentation has holes, go back to the Threshold and adjust the threshold level. Click on “Use for Masking” again. Go to “Grow from Seeds”, click on “Initialize”, and use the paint option to color the missing parts. Spend more time painting the segments. It’s important to zoom in on the slices and paint the edges of the segment to indicate to what they belong. Click on “Apply” to have an updated version of the segmentation.\n\nOnce you’re done with the segmentation, if there are any spikes or small islands, use the “Scissor” tool to cut them out. Make sure you have the correct segment selected when cutting out the island.\nTo smooth out the surface, go to the “Smoothing” option and apply a “Median” filter (use a small kernel of 2/3 mm).\nAdditionally, use the “Closing - Fill holes” filter, this time selecting a higher kernel (5/6 mm). To address single spots, go to the “Smoothing brush option” setting, click on “Edit in 3D view” to paint in the 3D view and close the local holes.\nIf satisfied with the segmentation, go on the Data Module, Under the Segmentation hierarchy, right-click on the Bone segment and Export to file. Select the STL version."
+  },
+  {
+    "objectID": "segmentation.html#gpa---pca",
+    "href": "segmentation.html#gpa---pca",
+    "title": "A 3D Slicer Tutorial",
+    "section": "GPA - PCA",
+    "text": "GPA - PCA\nFor General Procrustes Analysis (GPA) / Principal Components Analysis (PCA):\n\nTutorial GPA1\nTutorial GPA2"
+  },
+  {
+    "objectID": "intro_get_started.html",
+    "href": "intro_get_started.html",
+    "title": "Get started with INFEPY",
+    "section": "",
+    "text": "Inputs files:\n\nLandmarks file of the Source Volume\nLandmarks file of the Target Volume.\nFinite Element Mesh file of the Source Volume.\n\nOutput:\n\nMorphed volume: the deformed mesh according to the landmarks provided.\n\n\n\n\n\n\n\n\nNote\n\n\n\nThere can multiple targets to morph. Infepy checks if there are multiple forlder in the target folder. If that is so, it morphes multiple files.\n\n\nSupported files extensions: \n\nFor mesh files:\n\nLS-DYNA keywords files (.key/.k)\nComma-Separated Values file (csv)\n\nFor landmarks files:\n\nLS-DYNA keywords files (.key/.k)\nComma-Separated Values file (.csv/.fcsv)\nExtensible Markup Language (.xml) – beta usage!\n\n\n\n\n\nInfepy"
+  },
+  {
+    "objectID": "intro_get_started.html#what-you-need-to-use-infepy",
+    "href": "intro_get_started.html#what-you-need-to-use-infepy",
+    "title": "Get started with INFEPY",
+    "section": "",
+    "text": "Inputs files:\n\nLandmarks file of the Source Volume\nLandmarks file of the Target Volume.\nFinite Element Mesh file of the Source Volume.\n\nOutput:\n\nMorphed volume: the deformed mesh according to the landmarks provided.\n\n\n\n\n\n\n\n\nNote\n\n\n\nThere can multiple targets to morph. Infepy checks if there are multiple forlder in the target folder. If that is so, it morphes multiple files.\n\n\nSupported files extensions: \n\nFor mesh files:\n\nLS-DYNA keywords files (.key/.k)\nComma-Separated Values file (csv)\n\nFor landmarks files:\n\nLS-DYNA keywords files (.key/.k)\nComma-Separated Values file (.csv/.fcsv)\nExtensible Markup Language (.xml) – beta usage!\n\n\n\n\n\nInfepy"
+  },
+  {
+    "objectID": "demo_jupyter.html",
+    "href": "demo_jupyter.html",
+    "title": "Jupyter Notebook",
+    "section": "",
+    "text": "This shows an alternative use of the library. It is possible to use the function and create a .py file or .ipynb notebook.\nImport the library\nfrom infepy.morph import morphing\nfrom infepy.preprocessing import read_landmarks, read_nodes, write_output"
+  },
+  {
+    "objectID": "demo_jupyter.html#load-the-data",
+    "href": "demo_jupyter.html#load-the-data",
+    "title": "Jupyter Notebook",
+    "section": "Load the data",
+    "text": "Load the data\nDefine the paths\n\nsource_landmarks_file = \"../test_data/source/landmarks_source.fcsv\"\ntarget_landmarks_file = \"../test_data/target/100014/landmarks_target.csv\"\nsource_mesh_file  = \"../test_data/humerus_sx.key\"\ndestination_file = \"../test_data/target/100014/humerus_morphed.key\""
+  },
+  {
+    "objectID": "demo_jupyter.html#read-the-files",
+    "href": "demo_jupyter.html#read-the-files",
+    "title": "Jupyter Notebook",
+    "section": "Read the files",
+    "text": "Read the files\nCall the function read_landmarks() and read_nodes()\n\nsource_landmarks = read_landmarks(source_landmarks_file)\ntarget_landmarks  = read_landmarks(target_landmarks_file)\nsource_mesh = read_nodes(source_mesh_file)"
+  },
+  {
+    "objectID": "demo_jupyter.html#morph-the-mesh",
+    "href": "demo_jupyter.html#morph-the-mesh",
+    "title": "Jupyter Notebook",
+    "section": "Morph the mesh",
+    "text": "Morph the mesh\n\nmorphed_mesh = morphing(source_landmarks, target_landmarks, source_mesh, func= \"thin_plate_spline\", smoothing=0)"
+  },
+  {
+    "objectID": "demo_jupyter.html#write-file-output",
+    "href": "demo_jupyter.html#write-file-output",
+    "title": "Jupyter Notebook",
+    "section": "Write file output",
+    "text": "Write file output\n\nwrite_output(morphed_mesh, destination_file, source_mesh_file)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "INFEPY",
+    "section": "",
+    "text": "For documentation: Documentation"
+  },
+  {
+    "objectID": "index.html#description",
+    "href": "index.html#description",
+    "title": "INFEPY",
+    "section": "Description",
+    "text": "Description\nInfepy is a tool that applies morphing to mesh geometries. It performs morphing operations and achieves desired shape transformations between the source and target geometries using the specified landmarks. It allows to morph a source mesh to a target geometry by utilizing Radial Basis Function.\nThe source mesh should be a LS-DYNA .key file format, while the landmarks file can be either in .csv or .key. The target geometry can be a single item or multiple items, and you can find more detailed information about this process here."
+  },
+  {
+    "objectID": "index.html#installation",
+    "href": "index.html#installation",
+    "title": "INFEPY",
+    "section": "Installation",
+    "text": "Installation\n\nClone the repo\ngit clone https://github.com/infekit/infepy\nCreate environment in Anaconda\nOpen the terminal and type:\nconda create --name infekit-test python=3.9\nconda activate infekit-test\ncd into .../infepy: pip install -e ."
+  },
+  {
+    "objectID": "write_key_file.html",
+    "href": "write_key_file.html",
+    "title": "Write .key file",
+    "section": "",
+    "text": "Trasfrom dataframe to LS-DYNA key file.\nsource"
+  },
+  {
+    "objectID": "write_key_file.html#how-to-use-it",
+    "href": "write_key_file.html#how-to-use-it",
+    "title": "Write .key file",
+    "section": "How to use it:",
+    "text": "How to use it:\n\nCLI\nwrite_kfile.py --file.csv\n\n\nJupyter notebook\nwrite_kfile(\"path/to/file.csv\")"
+  },
+  {
+    "objectID": "folder_structure.html",
+    "href": "folder_structure.html",
+    "title": "Folder structure",
+    "section": "",
+    "text": "If there is only one target, place the landamarks files inside the target folder.\n\n\n\nSingle target folder structure\n\n\nIn the config file:\n    path = \"../test_data/target\"\n    filename_landmarks = \"landmarks_target.csv\""
+  },
+  {
+    "objectID": "folder_structure.html#single-target",
+    "href": "folder_structure.html#single-target",
+    "title": "Folder structure",
+    "section": "",
+    "text": "If there is only one target, place the landamarks files inside the target folder.\n\n\n\nSingle target folder structure\n\n\nIn the config file:\n    path = \"../test_data/target\"\n    filename_landmarks = \"landmarks_target.csv\""
+  },
+  {
+    "objectID": "folder_structure.html#multiple-targets",
+    "href": "folder_structure.html#multiple-targets",
+    "title": "Folder structure",
+    "section": "Multiple targets",
+    "text": "Multiple targets\n\n\n\nMultiple targets folder structure\n\n\nIn the config file:\nIn this case, there is no need to specify the single folder name, infepy will do it automatically. It is important that the landmarks files have all the same name and extesion type.\n  path = \"./test_data/target\"\n  filename_landmarks = \"landmarks_target.csv\""
+  }
+]
